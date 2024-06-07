@@ -82,10 +82,7 @@ void Snow_interact(Elements *self, Elements *tar)
 void Snow_draw(Elements *self)
 {
     Snow *Obj = ((Snow *)(self->pDerivedObj));
-    if (Obj->v > 0)
-        al_draw_bitmap(Obj->img, Obj->x, Obj->y, ALLEGRO_FLIP_HORIZONTAL);
-    else
-        al_draw_bitmap(Obj->img, Obj->x, Obj->y, 0);
+    al_draw_bitmap(Obj->img, Obj->x, Obj->y, 0);
 }
 void Snow_destory(Elements *self)
 {
