@@ -14,7 +14,7 @@ Elements *New_Snow_bullet(int label, int x, int y, int direction, Elements* play
     pDerivedObj->height = al_get_bitmap_height(pDerivedObj->img);
     pDerivedObj->x = x;
     pDerivedObj->y = y;
-    pDerivedObj->time_cnt = 30;
+    pDerivedObj->time_cnt = 5;
     pDerivedObj->created = 0;
     pDerivedObj->direction = direction;
     pDerivedObj->player = player;
