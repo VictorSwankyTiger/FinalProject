@@ -29,6 +29,7 @@ typedef enum EleType
     Teleport_L,
     Tree_L,
     Wall_L,
+    House_L,
     Bomb_L,
     Flame_L,
     Fire_L,

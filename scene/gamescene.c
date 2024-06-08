@@ -7,7 +7,7 @@ Scene *New_GameScene(int label)
     GameScene *pDerivedObj = (GameScene *)malloc(sizeof(GameScene));
     Scene *pObj = New_Scene(label);
     // setting derived object member
-    pDerivedObj->background = al_load_bitmap("assets/image/stage06.png");
+    pDerivedObj->background = al_load_bitmap("assets/image/stage07.png");
     pDerivedObj->font = al_load_ttf_font("assets/font/pirulen.ttf", 30, 0);
     pDerivedObj->x = 0;
     pDerivedObj->y = 0;
@@ -98,6 +98,12 @@ void game_scene_register_map(Scene *self)
                 Elements *fire;
                 fire = New_Fire(Fire_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
                 _Register_elements(self, fire);
+            }
+            if (gs->map_data[i][j] == 8)
+            {
+                Elements *house;
+                house = New_House(House_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
+                _Register_elements(self, house);
             }
         }
     }
