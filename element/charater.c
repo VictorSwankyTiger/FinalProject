@@ -22,11 +22,18 @@ Elements *New_Character(int label, int x, int y)
     Elements *pObj = New_Elements(label);
     // setting derived object member
     // load character images
-    char state_string[3][10] = {"stop", "move", "attack"};
-    for (int i = 0; i < 3; i++)
+    // char state_string[3][10] = {"stop", "move", "attack"};
+    // for (int i = 0; i < 3; i++)
+    // {
+    //     char buffer[50];
+    //     sprintf(buffer, "assets/image/robot%s.gif", state_string[i]);
+    //     pDerivedObj->gif_status[i] = algif_new_gif(buffer, -1);
+    // }
+    char direction_string[4][10] = {"left", "right", "up", "down"};
+    for (int i = 0; i < 4; i++)
     {
         char buffer[50];
-        sprintf(buffer, "assets/image/robot%s.gif", state_string[i]);
+        sprintf(buffer, "assets/image/pl1%s.gif", direction_string[i]);
         pDerivedObj->gif_status[i] = algif_new_gif(buffer, -1);
     }
     // load effective sound
@@ -44,6 +51,8 @@ Elements *New_Character(int label, int x, int y)
     pDerivedObj->move_limit = 4;
     pDerivedObj->bomb_limit = 1;
     pDerivedObj->bomb_cnt = 0;
+    pDerivedObj->attack_cnt = 0;
+    pDerivedObj->attack_limit = 10;
     pDerivedObj->live = 5;
     pDerivedObj->direction = 0;
     pDerivedObj->atk_mod = b;
@@ -80,12 +89,16 @@ void Character_update(Elements *self)
 {
     // use the idea of finite state machine to deal with different state
     Character *chara = ((Character *)(self->pDerivedObj));
-        
+    if(chara->attack_cnt != chara->attack_limit){
+        chara->attack_cnt++;
+    }
+
     if (chara->state == STOP)
     {
-        if (key_state[ALLEGRO_KEY_SPACE])
+        if (key_state[ALLEGRO_KEY_SPACE] && chara->attack_cnt == chara->attack_limit)
         {
             chara->state = ATK;
+            chara->attack_cnt = 0;
         }
 
         else if (key_state[ALLEGRO_KEY_A])
@@ -167,12 +180,12 @@ void Character_update(Elements *self)
     else if (chara->state == ATK)
     {
         if(chara->atk_mod == b){
-            if (chara->gif_status[chara->state]->done)
+            if (chara->gif_status[chara->direction]->done)
             {
                 chara->state = STOP;
                 chara->new_proj = false;
             }
-            if (chara->gif_status[ATK]->display_index == 0 && (chara->bomb_cnt < chara->bomb_limit)) //chara->new_proj == false
+            if (chara->gif_status[chara->direction]->display_index == 0 && (chara->bomb_cnt < chara->bomb_limit)) //chara->new_proj == false
             {
                 Elements *bomb;
                 bomb = New_Bomb(Bomb_L, chara->x, chara->y, self);
@@ -200,12 +213,12 @@ void Character_update(Elements *self)
             }
         }
         if(chara->atk_mod == s){
-            if (chara->gif_status[chara->state]->done)
+            if (chara->gif_status[chara->direction]->done)
             {
                 chara->state = STOP;
                 chara->new_proj = false;
             }
-            if (chara->gif_status[ATK]->display_index == 0 && (chara->bomb_cnt < chara->bomb_limit)) //chara->new_proj == false
+            if (chara->gif_status[chara->direction]->display_index == 0 && (chara->bomb_cnt < chara->bomb_limit)) //chara->new_proj == false
             {
                 Elements *snow;
                 snow = New_Snow_bullet(Snow_bullet_L, chara->x, chara->y-60,chara->direction, self, 2);
@@ -216,12 +229,12 @@ void Character_update(Elements *self)
             }
         }
         if(chara->atk_mod == f){
-            if (chara->gif_status[chara->state]->done)
+            if (chara->gif_status[chara->direction]->done)
             {
                 chara->state = STOP;
                 chara->new_proj = false;
             }
-            if (chara->gif_status[ATK]->display_index == 0 && (chara->bomb_cnt < chara->bomb_limit)) //chara->new_proj == false
+            if (chara->gif_status[chara->direction]->display_index == 0 && (chara->bomb_cnt < chara->bomb_limit)) //chara->new_proj == false
             {
                 Elements *fire;
                 fire = New_Fire_bullet(Fire_bullet_L, chara->x, chara->y-60,chara->direction, self, 2);
@@ -232,12 +245,12 @@ void Character_update(Elements *self)
             }
         }
         if(chara->atk_mod == m){
-            if (chara->gif_status[chara->state]->done)
+            if (chara->gif_status[chara->direction]->done)
             {
                 chara->state = STOP;
                 chara->new_proj = false;
             }
-            if (chara->gif_status[ATK]->display_index == 0 && (chara->bomb_cnt < chara->bomb_limit)) //chara->new_proj == false
+            if (chara->gif_status[chara->direction]->display_index == 0 && (chara->bomb_cnt < chara->bomb_limit)) //chara->new_proj == false
             {
                 Elements *missile;
                 missile = New_Missile_bullet(Missile_bullet_L, chara->x, chara->y-60,chara->direction, self, 2);  
@@ -247,7 +260,7 @@ void Character_update(Elements *self)
                 chara->atk_mod = b;
             }
         }
-        if (chara->gif_status[chara->state]->done)
+        if (chara->gif_status[chara->direction]->done)
         {
                 chara->state = STOP;
                 chara->new_proj = false;
@@ -258,12 +271,12 @@ void Character_draw(Elements *self)
 {
     // with the state, draw corresponding image
     Character *chara = ((Character *)(self->pDerivedObj));
-    ALLEGRO_BITMAP *frame = algif_get_bitmap(chara->gif_status[chara->state], al_get_time());
+    ALLEGRO_BITMAP *frame = algif_get_bitmap(chara->gif_status[chara->direction], al_get_time());
     if (frame)
     {
-        al_draw_bitmap(frame, chara->x, chara->y, ((chara->dir) ? ALLEGRO_FLIP_HORIZONTAL : 0));
+        al_draw_bitmap(frame, chara->x, chara->y, 0);
     }
-    if (chara->state == ATK && chara->gif_status[chara->state]->display_index == 2)
+    if (chara->state == ATK && chara->gif_status[chara->direction]->display_index == 2)
     {
         al_play_sample_instance(chara->atk_Sound);
     }
@@ -275,7 +288,7 @@ void Character_destory(Elements *self)
 {
     Character *Obj = ((Character *)(self->pDerivedObj));
     al_destroy_sample_instance(Obj->atk_Sound);
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 4; i++)
         algif_destroy_animation(Obj->gif_status[i]);
     free(Obj->hitbox);
     free(Obj);
