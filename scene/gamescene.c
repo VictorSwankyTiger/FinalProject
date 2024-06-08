@@ -18,14 +18,14 @@ Scene *New_GameScene(int label)
     _Register_elements(pObj, New_Floor(Floor_L));
     _Register_elements(pObj, New_Teleport(Teleport_L));
     _Register_elements(pObj, New_Tree(Tree_L));
-    _Register_elements(pObj, New_Wall(Wall_L,975,725));
+    // _Register_elements(pObj, New_Wall(Wall_L,975,725));
     game_scene_load_map(pObj);
     game_scene_register_map(pObj);
-    _Register_elements(pObj, New_Fire(Fire_L,975,725));
-    _Register_elements(pObj, New_Snow(Snow_L,200,725));
-    _Register_elements(pObj, New_Fire(Fire_L,200,725));
+    // _Register_elements(pObj, New_Fire(Fire_L,975,725));
+    // _Register_elements(pObj, New_Snow(Snow_L,200,725));
+    // _Register_elements(pObj, New_Fire(Fire_L,200,725));
     
-    _Register_elements(pObj, New_Missile(Missile_L,200,0));
+    // _Register_elements(pObj, New_Missile(Missile_L,200,0));
     // setting derived object function
     pObj->Update = game_scene_update;
     pObj->Draw = game_scene_draw;
@@ -37,9 +37,9 @@ void game_scene_load_map(Scene *self)
     FILE *data;
     GameScene *gs = ((GameScene *)(self->pDerivedObj));
     data = fopen("assets/map/gamescene_map.txt", "r");
-    for (int i = 0; i < 14; i++)
+    for (int i = 0; i < 12; i++)
     {
-        for (int j = 0; j < 15; j++)
+        for (int j = 0; j < 13; j++)
         {
             fscanf(data, "%d", &gs->map_data[i][j]);
         }
@@ -51,9 +51,9 @@ void game_scene_register_map(Scene *self)
     GameScene *gs = ((GameScene *)(self->pDerivedObj));
     Elements *ele;
     int label;
-    for (int i = 0; i < 14; i++)
+    for (int i = 0; i < 12; i++)
     {
-        for (int j = 0; j < 15; j++)
+        for (int j = 0; j < 13; j++)
         {
             if (gs->map_data[i][j] == 1)
             {

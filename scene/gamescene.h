@@ -10,6 +10,7 @@
 #include "../element/tree.h"
 #include "../element/projectile.h"
 #include "../element/fire.h"
+#include "../element/house.h"
 #include "../element/missile.h"
 #include "../element/snow.h"
 #include "../element/snow_bullet.h"
