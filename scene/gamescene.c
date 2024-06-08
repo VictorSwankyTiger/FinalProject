@@ -29,9 +29,9 @@ Scene *New_GameScene(int label)
     //     }
     //     // printf("\n");
     // }
-
-    _Register_elements(pObj, New_Fire(Fire_L,975,725));
     _Register_elements(pObj, New_Snow(Snow_L,200,725));
+    _Register_elements(pObj, New_Fire(Fire_L,200,725));
+    
     _Register_elements(pObj, New_Missile(Missile_L,200,0));
 
 
