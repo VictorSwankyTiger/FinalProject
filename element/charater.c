@@ -80,6 +80,40 @@ void Character_update(Elements *self)
 {
     // use the idea of finite state machine to deal with different state
     Character *chara = ((Character *)(self->pDerivedObj));
+        if (key_state[ALLEGRO_KEY_SPACE])
+        {
+            chara->state = ATK;
+        }
+        else if (key_state[ALLEGRO_KEY_A])
+        {
+            chara->dir = false;
+            chara->direction = 0;
+            chara->state = MOVE;
+        }
+        else if (key_state[ALLEGRO_KEY_D])
+        {
+            chara->dir = true;
+            chara->direction = 1;
+            chara->state = MOVE;
+        }
+
+        else if (key_state[ALLEGRO_KEY_W])
+        {
+            chara->dir = false;
+            chara->direction = 2;
+            chara->state = MOVE;
+        }
+        else if (key_state[ALLEGRO_KEY_S])
+        {
+            chara->dir = true;
+            chara->direction = 3;
+            chara->state = MOVE;
+        }
+
+        else
+        {
+            chara->state = STOP;
+        }
     if (chara->state == STOP)
     {
         if (key_state[ALLEGRO_KEY_SPACE])
@@ -89,22 +123,26 @@ void Character_update(Elements *self)
         else if (key_state[ALLEGRO_KEY_A])
         {
             chara->dir = false;
+            chara->direction = 0;
             chara->state = MOVE;
         }
         else if (key_state[ALLEGRO_KEY_D])
         {
             chara->dir = true;
+            chara->direction = 1;
             chara->state = MOVE;
         }
 
         else if (key_state[ALLEGRO_KEY_W])
         {
             chara->dir = false;
+            chara->direction = 2;
             chara->state = MOVE;
         }
         else if (key_state[ALLEGRO_KEY_S])
         {
             chara->dir = true;
+            chara->direction = 3;
             chara->state = MOVE;
         }
 
@@ -122,12 +160,14 @@ void Character_update(Elements *self)
         else if (key_state[ALLEGRO_KEY_A])
         {
             chara->dir = false;
+            chara->direction = 0;
             _Character_update_position(self, -27.5, 0);
             chara->state = MOVE;
         }
         else if (key_state[ALLEGRO_KEY_D])
         {
             chara->dir = true;
+            chara->direction = 1;
             _Character_update_position(self, 27.5, 0);
             chara->state = MOVE;
         }
@@ -135,12 +175,14 @@ void Character_update(Elements *self)
         else if (key_state[ALLEGRO_KEY_W])
         {
             chara->dir = false;
+            chara->direction = 2;
             _Character_update_position(self, 0, -27.5);
             chara->state = MOVE;
         }
         else if (key_state[ALLEGRO_KEY_S])
         {
             chara->dir = true;
+            chara->direction = 3;
             _Character_update_position(self, 0, 27.5);
             chara->state = MOVE;
         }
@@ -219,6 +261,22 @@ void Character_update(Elements *self)
         {
                 chara->state = STOP;
                 chara->new_proj = false;
+        }
+        if(chara->atk_mod == m){
+            if (chara->gif_status[chara->state]->done)
+            {
+                chara->state = STOP;
+                chara->new_proj = false;
+            }
+            if (chara->gif_status[ATK]->display_index == 0 && (chara->bomb_cnt < chara->bomb_limit)) //chara->new_proj == false
+            {
+                Elements *missile;
+                missile = New_Missile_bullet(Missile_bullet_L, chara->x, chara->y-60,chara->direction, self, 2);  
+                chara->bomb_cnt++;
+                _Register_elements(scene, missile);
+                chara->new_proj = true;
+                chara->atk_mod = b;
+            }
         }
     }
 }
@@ -307,6 +365,14 @@ void Character_interact(Elements *self, Elements *tar) {
     {
         Fire_bullet *fire = (Fire_bullet *)(tar->pDerivedObj);
         if (fire->hitbox->overlap(fire->hitbox, chara->hitbox) && fire->player != self)
+        {
+            chara->live--;
+        }
+    }
+    if (tar->label == Missile_bullet_L)
+    {
+        Missile_bullet *missile = (Missile_bullet *)(tar->pDerivedObj);
+        if (missile->hitbox->overlap(missile->hitbox, chara->hitbox)&& missile->player != self)
         {
             chara->live--;
         }

@@ -12,7 +12,7 @@ typedef struct _Missile
     int width, height; // the width and height of image
     int v;             // the velocity of projectile
     int cnt;
-    Elements* player;
+    Elements *player;
     ALLEGRO_BITMAP *img;
     Shape *hitbox; // the hitbox of object
 } Missile;
