@@ -80,6 +80,7 @@ void Character1_update(Elements *self)
 {
     // use the idea of finite state machine to deal with different state
     Character1 *chara = ((Character1 *)(self->pDerivedObj));
+    
     if (chara->state == STOP)
     {
         if (key_state[ALLEGRO_KEY_RCTRL])
@@ -123,14 +124,14 @@ void Character1_update(Elements *self)
         else if (key_state[ALLEGRO_KEY_LEFT])
         {
             chara->dir = false;
-            chara->direction = 1;
+            chara->direction = 0;
             _Character1_update_position(self, -55, 0);
             chara->state = MOVE;
         }
         else if (key_state[ALLEGRO_KEY_RIGHT])
         {
             chara->dir = true;
-            chara->direction = 3;
+            chara->direction = 1;
             _Character1_update_position(self, 55, 0);
             chara->state = MOVE;
         }
@@ -145,7 +146,7 @@ void Character1_update(Elements *self)
         else if (key_state[ALLEGRO_KEY_DOWN])
         {
             chara->dir = true;
-            chara->direction = 4;
+            chara->direction = 3;
             _Character1_update_position(self, 0, 55);
             chara->state = MOVE;
         }
@@ -217,12 +218,35 @@ void Character1_update(Elements *self)
                 // fire = New_Fire_bullet(Fire_bullet_L, chara->x+(chara->direction-2)*60, chara->y,chara->direction, self, 2);
                 // if(chara->direction == 3 || chara->direction==4)
                 // fire = New_Fire_bullet(Fire_bullet_L, chara->x, chara->y+(chara->direction-3)*60,chara->direction, self, 2);
-                fire = New_Fire_bullet(Fire_bullet_L, chara->x, chara->y,chara->direction, self, 2);
-                chara->bomb_cnt++;
-                _Register_elements(scene, fire);
+                if(chara->direction == 0){
+                    fire = New_Fire_bullet(Fire_bullet_L, chara->x-34, chara->y,chara->direction, self, 2);
+                    chara->bomb_cnt++;
+                    _Register_elements(scene, fire);
+                }
+                if(chara->direction == 1){
+                    fire = New_Fire_bullet(Fire_bullet_L, chara->x+34, chara->y,chara->direction, self, 2);
+                    chara->bomb_cnt++;
+                    _Register_elements(scene, fire);
+                }
+                if(chara->direction == 2){
+                    fire = New_Fire_bullet(Fire_bullet_L, chara->x, chara->y-174,chara->direction, self, 2);
+                    chara->bomb_cnt++;
+                    _Register_elements(scene, fire);
+                }
+                if(chara->direction == 3){
+                    fire = New_Fire_bullet(Fire_bullet_L, chara->x, chara->y+58,chara->direction, self, 2);
+                    chara->bomb_cnt++;
+                    _Register_elements(scene, fire);
+                }
+                
                 chara->new_proj = true;
                 chara->atk_mod = b;
             }
+        }
+        if (chara->gif_status[chara->state]->done)
+        {
+            chara->state = STOP;
+            chara->new_proj = false;
         }
     }
 }

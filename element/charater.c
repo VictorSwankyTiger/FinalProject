@@ -115,7 +115,6 @@ void Character_update(Elements *self)
     }
     else if (chara->state == MOVE)
     {
-        
         if (key_state[ALLEGRO_KEY_SPACE])
         {
             chara->state = ATK;
@@ -150,7 +149,7 @@ void Character_update(Elements *self)
             chara->state = STOP;
     }
     else if (chara->state == ATK)
-    {   
+    {
         if(chara->atk_mod == b){
             if (chara->gif_status[chara->state]->done)
             {
@@ -215,6 +214,11 @@ void Character_update(Elements *self)
                 chara->new_proj = true;
                 chara->atk_mod = b;
             }
+        }
+        if (chara->gif_status[chara->state]->done)
+        {
+                chara->state = STOP;
+                chara->new_proj = false;
         }
     }
 }
