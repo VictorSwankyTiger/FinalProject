@@ -43,7 +43,7 @@ void Snow_bullet_update(Elements *self)
     if(!Obj->created && Obj->length){
         Elements *Snow_bullet;
         if(Obj->direction == 0){
-            Snow_bullet = New_Snow_bullet(Snow_bullet_L, Obj->x, Obj->y - 55, Obj->direction,Obj->player, Obj->length-1);
+            Snow_bullet = New_Snow_bullet(Snow_bullet_L, Obj->x-55, Obj->y, Obj->direction,Obj->player, Obj->length-1);
             _Register_elements(scene, Snow_bullet);
         }
         if(Obj->direction == 1){
@@ -51,26 +51,14 @@ void Snow_bullet_update(Elements *self)
             _Register_elements(scene, Snow_bullet);
         }
         if(Obj->direction == 2){
-            Snow_bullet = New_Snow_bullet(Snow_bullet_L, Obj->x, Obj->y + 55, Obj->direction,Obj->player, Obj->length-1);
+            Snow_bullet = New_Snow_bullet(Snow_bullet_L, Obj->x, Obj->y - 55, Obj->direction,Obj->player, Obj->length-1);
             _Register_elements(scene, Snow_bullet);
         }
         if(Obj->direction == 3){
-            Snow_bullet = New_Snow_bullet(Snow_bullet_L, Obj->x - 55, Obj->y, Obj->direction,Obj->player, Obj->length-1);
+            Snow_bullet = New_Snow_bullet(Snow_bullet_L, Obj->x, Obj->y+55, Obj->direction,Obj->player, Obj->length-1);
             _Register_elements(scene, Snow_bullet);
         }
-        if(Obj->direction == 4){
-            Snow_bullet = New_Snow_bullet(Snow_bullet_L, Obj->x, Obj->y - 55, 0,Obj->player, Obj->length-1);
-            _Register_elements(scene, Snow_bullet);
-        
-            Snow_bullet = New_Snow_bullet(Snow_bullet_L, Obj->x + 55, Obj->y, 1,Obj->player, Obj->length-1);
-            _Register_elements(scene, Snow_bullet);
-        
-            Snow_bullet = New_Snow_bullet(Snow_bullet_L, Obj->x, Obj->y + 55, 2,Obj->player, Obj->length-1);
-            _Register_elements(scene, Snow_bullet);
-        
-            Snow_bullet = New_Snow_bullet(Snow_bullet_L, Obj->x - 55, Obj->y, 3,Obj->player, Obj->length-1);
-            _Register_elements(scene, Snow_bullet);
-        }
+    
         Obj->created = 1;
     }
 
