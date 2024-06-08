@@ -234,17 +234,39 @@ void Character_update(Elements *self)
             }
         }
         if(chara->atk_mod == f){
-            if (chara->gif_status[chara->direction]->done)
+            if (chara->gif_status[chara->state]->done)
             {
                 chara->state = STOP;
                 chara->new_proj = false;
             }
-            if (chara->gif_status[chara->direction]->display_index == 0 && (chara->bomb_cnt < chara->bomb_limit)) //chara->new_proj == false
+            if (chara->gif_status[ATK]->display_index == 0 && (chara->bomb_cnt < chara->bomb_limit)) //chara->new_proj == false
             {
                 Elements *fire;
-                fire = New_Fire_bullet(Fire_bullet_L, chara->x, chara->y-60,chara->direction, self, 2);
-                chara->bomb_cnt++;
-                _Register_elements(scene, fire);
+                // if(chara->direction == 1 || chara->direction==3)
+                // fire = New_Fire_bullet(Fire_bullet_L, chara->x+(chara->direction-2)*60, chara->y,chara->direction, self, 2);
+                // if(chara->direction == 3 || chara->direction==4)
+                // fire = New_Fire_bullet(Fire_bullet_L, chara->x, chara->y+(chara->direction-3)*60,chara->direction, self, 2);
+                if(chara->direction == 0){
+                    fire = New_Fire_bullet(Fire_bullet_L, chara->x-34, chara->y,chara->direction, self, 2);
+                    chara->bomb_cnt++;
+                    _Register_elements(scene, fire);
+                }
+                if(chara->direction == 1){
+                    fire = New_Fire_bullet(Fire_bullet_L, chara->x+34, chara->y,chara->direction, self, 2);
+                    chara->bomb_cnt++;
+                    _Register_elements(scene, fire);
+                }
+                if(chara->direction == 2){
+                    fire = New_Fire_bullet(Fire_bullet_L, chara->x, chara->y-58,chara->direction, self, 2);
+                    chara->bomb_cnt++;
+                    _Register_elements(scene, fire);
+                }
+                if(chara->direction == 3){
+                    fire = New_Fire_bullet(Fire_bullet_L, chara->x, chara->y+58,chara->direction, self, 2);
+                    chara->bomb_cnt++;
+                    _Register_elements(scene, fire);
+                }
+                
                 chara->new_proj = true;
                 chara->atk_mod = b;
             }

@@ -45,32 +45,19 @@ void Fire_bullet_update(Elements *self)
     if(!Obj->created && Obj->length){
         Elements *Fire_bullet;
         if(Obj->direction == 0){
-            Fire_bullet = New_Fire_bullet(Fire_bullet_L, Obj->x, Obj->y - 55, Obj->direction,Obj->player, Obj->length-1);
+            Fire_bullet = New_Fire_bullet(Fire_bullet_L, Obj->x-55, Obj->y, Obj->direction,Obj->player, Obj->length-1);
             _Register_elements(scene, Fire_bullet);
         }
         if(Obj->direction == 1){
-            Fire_bullet = New_Fire_bullet(Fire_bullet_L, Obj->x + 55, Obj->y, Obj->direction,Obj->player, Obj->length-1);
+            Fire_bullet = New_Fire_bullet(Fire_bullet_L, Obj->x+55, Obj->y, Obj->direction,Obj->player, Obj->length-1);
             _Register_elements(scene, Fire_bullet);
         }
         if(Obj->direction == 2){
-            Fire_bullet = New_Fire_bullet(Fire_bullet_L, Obj->x, Obj->y + 55, Obj->direction,Obj->player, Obj->length-1);
+            Fire_bullet = New_Fire_bullet(Fire_bullet_L, Obj->x, Obj->y-55, Obj->direction,Obj->player, Obj->length-1);
             _Register_elements(scene, Fire_bullet);
         }
         if(Obj->direction == 3){
-            Fire_bullet = New_Fire_bullet(Fire_bullet_L, Obj->x - 55, Obj->y, Obj->direction,Obj->player, Obj->length-1);
-            _Register_elements(scene, Fire_bullet);
-        }
-        if(Obj->direction == 4){
-            Fire_bullet = New_Fire_bullet(Fire_bullet_L, Obj->x, Obj->y - 55, 0,Obj->player, Obj->length-1);
-            _Register_elements(scene, Fire_bullet);
-        
-            Fire_bullet = New_Fire_bullet(Fire_bullet_L, Obj->x + 55, Obj->y, 1,Obj->player, Obj->length-1);
-            _Register_elements(scene, Fire_bullet);
-        
-            Fire_bullet = New_Fire_bullet(Fire_bullet_L, Obj->x, Obj->y + 55, 2,Obj->player, Obj->length-1);
-            _Register_elements(scene, Fire_bullet);
-        
-            Fire_bullet = New_Fire_bullet(Fire_bullet_L, Obj->x - 55, Obj->y, 3,Obj->player, Obj->length-1);
+            Fire_bullet = New_Fire_bullet(Fire_bullet_L, Obj->x , Obj->y+55, Obj->direction,Obj->player, Obj->length-1);
             _Register_elements(scene, Fire_bullet);
         }
         Obj->created = 1;
