@@ -17,7 +17,7 @@
    [Character1 function]
 */
 
-Elements *New_Character1(int label)
+Elements *New_Character1(int label, int x, int y)
 {
     Character1 *pDerivedObj = (Character1 *)malloc(sizeof(Character1));
     Elements *pObj = New_Elements(label);
@@ -39,8 +39,8 @@ Elements *New_Character1(int label)
     // initial the geometric information of character
     pDerivedObj->width = pDerivedObj->gif_status[0]->width;
     pDerivedObj->height = pDerivedObj->gif_status[0]->height;
-    pDerivedObj->x = 300 + 300;
-    pDerivedObj->y = HEIGHT - pDerivedObj->height - 60;
+    pDerivedObj->x = x;
+    pDerivedObj->y = y;
     pDerivedObj->move_cnt = 0;
     pDerivedObj->move_limit = 5;
     pDerivedObj->bomb_limit = 1;

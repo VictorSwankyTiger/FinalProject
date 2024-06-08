@@ -129,49 +129,47 @@ void Floor_interact(Elements *self, Elements *tar)
 }
 void Floor_draw(Elements *self)
 {
-    Floor *Obj = ((Floor *)(self->pDerivedObj));
-    if(Obj->draw == false){
-        for (int i = 0; i < 14; i++)
-        {
-            for (int j = 0; j < 15; j++)
-            {
-                if (Obj->map_data[i][j] == 1)
-                {
-                    // al_draw_bitmap(Obj->img, Obj->x + j * Obj->width+190, Obj->y + i * Obj->height, 0);
-                    Elements *wall;
-                    wall = New_Wall(Wall_L, Obj->x + j * Obj->width + 190, Obj->y + i * Obj->height);
-                    _Register_elements(scene, wall);
-                }
-                if (Obj->map_data[i][j] == 2)
-                {
-                    Elements *snow;
-                    snow = New_Snow(Snow_L, Obj->x + j * Obj->width + 190, Obj->y + i * Obj->height);
-                    _Register_elements(scene, snow);
-                }
-                if (Obj->map_data[i][j] == 3)
-                {
-                    Elements *fire;
-                    fire = New_Fire(Fire_L, Obj->x + j * Obj->width + 190, Obj->y + i * Obj->height);
-                    _Register_elements(scene, fire);
-                }
-                if (Obj->map_data[i][j] == 4)
-                {
-                    Elements *missile;
-                    missile = New_Missile(Missile_L, Obj->x + j * Obj->width + 190, Obj->y + i * Obj->height);
-                    _Register_elements(scene, missile);
-                }
-                if (Obj->map_data[i][j] == 5)
-                {
-                    Elements *fire;
-                    fire = New_Fire(Fire_L, Obj->x + j * Obj->width + 190, Obj->y + i * Obj->height);
-                    _Register_elements(scene, fire);
-                }
-
-
-            }
-        }
-        Obj->draw = true;
-    }
+    // Floor *Obj = ((Floor *)(self->pDerivedObj));
+    // if(Obj->draw == false){
+    //     for (int i = 0; i < 14; i++)
+    //     {
+    //         for (int j = 0; j < 15; j++)
+    //         {
+    //             if (Obj->map_data[i][j] == 1)
+    //             {
+    //                 // al_draw_bitmap(Obj->img, Obj->x + j * Obj->width+190, Obj->y + i * Obj->height, 0);
+    //                 Elements *wall;
+    //                 wall = New_Wall(Wall_L, Obj->x + j * Obj->width + 190, Obj->y + i * Obj->height);
+    //                 _Register_elements(scene, wall);
+    //             }
+    //             if (Obj->map_data[i][j] == 2)
+    //             {
+    //                 Elements *snow;
+    //                 snow = New_Snow(Snow_L, Obj->x + j * Obj->width + 190, Obj->y + i * Obj->height);
+    //                 _Register_elements(scene, snow);
+    //             }
+    //             if (Obj->map_data[i][j] == 3)
+    //             {
+    //                 Elements *fire;
+    //                 fire = New_Fire(Fire_L, Obj->x + j * Obj->width + 190, Obj->y + i * Obj->height);
+    //                 _Register_elements(scene, fire);
+    //             }
+    //             if (Obj->map_data[i][j] == 4)
+    //             {
+    //                 Elements *missile;
+    //                 missile = New_Missile(Missile_L, Obj->x + j * Obj->width + 190, Obj->y + i * Obj->height);
+    //                 _Register_elements(scene, missile);
+    //             }
+    //             if (Obj->map_data[i][j] == 5)
+    //             {
+    //                 Elements *fire;
+    //                 fire = New_Fire(Fire_L, Obj->x + j * Obj->width + 190, Obj->y + i * Obj->height);
+    //                 _Register_elements(scene, fire);
+    //             }
+    //         }
+    //     }
+    //     Obj->draw = true;
+    // }
     
 }
 void Floor_destory(Elements *self)

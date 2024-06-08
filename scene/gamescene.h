@@ -47,8 +47,15 @@ typedef struct _GameScene
     ALLEGRO_BITMAP *background;
     ALLEGRO_FONT *font;
 
+    int map_data[14][15];
+    int x;
+    int y;
+    int map_x;
+    int map_y;
 } GameScene;
 Scene *New_GameScene(int label);
+void game_scene_load_map(Scene *self);
+void game_scene_register_map(Scene *self);
 void game_scene_update(Scene *self);
 void game_scene_draw(Scene *self);
 void game_scene_destroy(Scene *self);
