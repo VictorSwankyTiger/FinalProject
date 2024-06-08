@@ -47,7 +47,7 @@ typedef struct _Character1
     ALLEGRO_FONT *font;
 
 } Character1;
-Elements *New_Character1(int label);
+Elements *New_Character1(int label, int x, int y);
 void _Character1_update_position(Elements *self, int dx, int dy);
 void Character1_update(Elements *self);
 void Character1_interact(Elements *self, Elements *target);

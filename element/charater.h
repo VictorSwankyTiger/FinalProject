@@ -45,7 +45,7 @@ typedef struct _Character
     Shape *hitbox; // the hitbox of object
     ALLEGRO_FONT *font;
 } Character;
-Elements *New_Character(int label);
+Elements *New_Character(int label, int x, int y);
 void _Character_update_position(Elements *self, int dx, int dy);
 void Character_update(Elements *self);
 void Character_interact(Elements *self, Elements *target);

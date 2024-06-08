@@ -18,6 +18,7 @@ extern const int WIDTH;
 extern const int HEIGHT;
 extern const int BOARD_W;
 extern const int BOARD_H;
+extern const int ONE_GRID;
 extern int window;
 extern bool key_state[ALLEGRO_KEY_MAX];
 extern bool mouse_state[ALLEGRO_MOUSE_MAX_EXTRA_AXES];
