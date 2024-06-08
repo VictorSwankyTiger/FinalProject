@@ -41,7 +41,7 @@ Elements *New_Character(int label, int x, int y)
     pDerivedObj->x = x;
     pDerivedObj->y = y;
     pDerivedObj->move_cnt = 0;
-    pDerivedObj->move_limit = 30;
+    pDerivedObj->move_limit = 4;
     pDerivedObj->bomb_limit = 1;
     pDerivedObj->bomb_cnt = 0;
     pDerivedObj->live = 5;
@@ -87,30 +87,42 @@ void Character_update(Elements *self)
         {
             chara->state = ATK;
         }
+
         else if (key_state[ALLEGRO_KEY_A])
         {
             chara->dir = false;
             chara->direction = 0;
             chara->state = MOVE;
+
+            chara->move_cnt++;
+            _Character_update_position(self, -ONE_GRID/chara->move_limit, 0);
         }
         else if (key_state[ALLEGRO_KEY_D])
         {
             chara->dir = true;
             chara->direction = 1;
             chara->state = MOVE;
-        }
 
+            chara->move_cnt++;
+            _Character_update_position(self, ONE_GRID/chara->move_limit, 0);
+        }
         else if (key_state[ALLEGRO_KEY_W])
         {
             chara->dir = false;
             chara->direction = 2;
             chara->state = MOVE;
+
+            chara->move_cnt++;
+            _Character_update_position(self, 0, -ONE_GRID/chara->move_limit);
         }
         else if (key_state[ALLEGRO_KEY_S])
         {
             chara->dir = true;
             chara->direction = 3;
             chara->state = MOVE;
+
+            chara->move_cnt++;
+            _Character_update_position(self, 0, ONE_GRID/chara->move_limit);
         }
 
         else
@@ -120,42 +132,37 @@ void Character_update(Elements *self)
     }
     else if (chara->state == MOVE)
     {
-        if (key_state[ALLEGRO_KEY_SPACE])
-        {
-            chara->state = ATK;
+        if(chara->move_cnt < chara->move_limit){
+            chara->move_cnt++;
+            if (chara->direction == 0)
+            {
+                chara->dir = false;
+                chara->direction = 0;
+                _Character_update_position(self, -ONE_GRID/chara->move_limit, 0);
+            }
+            else if (chara->direction == 1)
+            {
+                chara->dir = true;
+                chara->direction = 1;
+                _Character_update_position(self, ONE_GRID/chara->move_limit, 0);
+            }
+            else if (chara->direction == 2)
+            {
+                chara->dir = false;
+                chara->direction = 2;
+                _Character_update_position(self, 0, -ONE_GRID/chara->move_limit);
+            }
+            else if (chara->direction == 3)
+            {
+                chara->dir = true;
+                chara->direction = 3;
+                _Character_update_position(self, 0, ONE_GRID/chara->move_limit);
+            }
         }
-        else if (key_state[ALLEGRO_KEY_A])
-        {
-            chara->dir = false;
-            chara->direction = 0;
-            _Character_update_position(self, -27.5, 0);
-            chara->state = MOVE;
-        }
-        else if (key_state[ALLEGRO_KEY_D])
-        {
-            chara->dir = true;
-            chara->direction = 1;
-            _Character_update_position(self, 27.5, 0);
-            chara->state = MOVE;
-        }
-
-        else if (key_state[ALLEGRO_KEY_W])
-        {
-            chara->dir = false;
-            chara->direction = 2;
-            _Character_update_position(self, 0, -27.5);
-            chara->state = MOVE;
-        }
-        else if (key_state[ALLEGRO_KEY_S])
-        {
-            chara->dir = true;
-            chara->direction = 3;
-            _Character_update_position(self, 0, 27.5);
-            chara->state = MOVE;
-        }
-
-        if (chara->gif_status[chara->state]->done)
+        else{
+            chara->move_cnt = 0;
             chara->state = STOP;
+        }
     }
     else if (chara->state == ATK)
     {
@@ -223,11 +230,6 @@ void Character_update(Elements *self)
                 chara->new_proj = true;
                 chara->atk_mod = b;
             }
-        }
-        if (chara->gif_status[chara->state]->done)
-        {
-                chara->state = STOP;
-                chara->new_proj = false;
         }
         if(chara->atk_mod == m){
             if (chara->gif_status[chara->state]->done)
