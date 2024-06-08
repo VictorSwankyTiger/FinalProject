@@ -80,6 +80,36 @@ void Character_update(Elements *self)
 {
     // use the idea of finite state machine to deal with different state
     Character *chara = ((Character *)(self->pDerivedObj));
+        if (key_state[ALLEGRO_KEY_SPACE])
+        {
+            chara->state = ATK;
+        }
+        else if (key_state[ALLEGRO_KEY_A])
+        {
+            chara->dir = false;
+            chara->state = MOVE;
+        }
+        else if (key_state[ALLEGRO_KEY_D])
+        {
+            chara->dir = true;
+            chara->state = MOVE;
+        }
+
+        else if (key_state[ALLEGRO_KEY_W])
+        {
+            chara->dir = false;
+            chara->state = MOVE;
+        }
+        else if (key_state[ALLEGRO_KEY_S])
+        {
+            chara->dir = true;
+            chara->state = MOVE;
+        }
+
+        else
+        {
+            chara->state = STOP;
+        }
     if (chara->state == STOP)
     {
         if (key_state[ALLEGRO_KEY_SPACE])
