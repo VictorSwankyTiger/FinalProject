@@ -3,10 +3,10 @@
 #include <stdbool.h>
 // variables for global usage
 const double FPS = 30.0;
-const int WIDTH = 1032;
-const int HEIGHT = 770;
-const int BOARD_W = 825;
-const int BOARD_H = 770;
+const int WIDTH = 1080;
+const int HEIGHT = 840;
+const int BOARD_W = 900;
+const int BOARD_H = 840;
 const int ONE_GRID = 60;
 int window = 0;
 ALLEGRO_EVENT_QUEUE *event_queue = NULL;

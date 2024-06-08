@@ -37,9 +37,9 @@ void game_scene_load_map(Scene *self)
     FILE *data;
     GameScene *gs = ((GameScene *)(self->pDerivedObj));
     data = fopen("assets/map/gamescene_map.txt", "r");
-    for (int i = 0; i < 12; i++)
+    for (int i = 0; i < 13; i++)
     {
-        for (int j = 0; j < 13; j++)
+        for (int j = 0; j < 14; j++)
         {
             fscanf(data, "%d", &gs->map_data[i][j]);
         }
@@ -51,58 +51,58 @@ void game_scene_register_map(Scene *self)
     GameScene *gs = ((GameScene *)(self->pDerivedObj));
     Elements *ele;
     int label;
-    for (int i = 0; i < 12; i++)
+    for (int i = 0; i < 13; i++)
     {
-        for (int j = 0; j < 13; j++)
+        for (int j = 0; j < 14; j++)
         {
             if (gs->map_data[i][j] == 1)
             {
                 Elements *wall;
-                wall = New_Wall(Wall_L, gs->map_x + j * ONE_GRID + 34 , gs->map_y + i * ONE_GRID+ 50);
+                wall = New_Wall(Wall_L, gs->map_x + j * ONE_GRID  , gs->map_y + i * ONE_GRID);
                 _Register_elements(self, wall);
             }
 
             if (gs->map_data[i][j] == 2)
             {
                 Elements *chara;
-                chara = New_Character(Character_L, gs->map_x + j * ONE_GRID+ 34 , gs->map_y + i * ONE_GRID+ 50);
+                chara = New_Character(Character_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
                 _Register_elements(self, chara);
             }
             if (gs->map_data[i][j] == 3)
             {
                 Elements *chara;
-                chara = New_Character1(Character1_L, gs->map_x + j * ONE_GRID+ 34 , gs->map_y + i * ONE_GRID+ 50);
+                chara = New_Character1(Character1_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
                 _Register_elements(self, chara);
             }
 
             if (gs->map_data[i][j] == 4)
             {
                 Elements *snow;
-                snow = New_Snow(Snow_L, gs->map_x + j * ONE_GRID+ 34 , gs->map_y + i * ONE_GRID+ 50);
+                snow = New_Snow(Snow_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
                 _Register_elements(self, snow);
             }
             if (gs->map_data[i][j] == 5)
             {
                 Elements *fire;
-                fire = New_Fire(Fire_L, gs->map_x + j * ONE_GRID+ 34 , gs->map_y + i * ONE_GRID+ 50);
+                fire = New_Fire(Fire_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
                 _Register_elements(self, fire);
             }
             if (gs->map_data[i][j] == 6)
             {
                 Elements *missile;
-                missile = New_Missile(Missile_L, gs->map_x + j * ONE_GRID+ 34 , gs->map_y + i * ONE_GRID+ 50);
+                missile = New_Missile(Missile_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
                 _Register_elements(self, missile);
             }
             if (gs->map_data[i][j] == 7)
             {
                 Elements *fire;
-                fire = New_Fire(Fire_L, gs->map_x + j * ONE_GRID+ 34 , gs->map_y + i * ONE_GRID+ 50);
+                fire = New_Fire(Fire_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
                 _Register_elements(self, fire);
             }
             if (gs->map_data[i][j] == 8)
             {
                 Elements *house;
-                house = New_House(House_L, gs->map_x + j * ONE_GRID+ 34 , gs->map_y + i * ONE_GRID+ 50);
+                house = New_House(House_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
                 _Register_elements(self, house);
             }
         }
