@@ -42,7 +42,7 @@ Elements *New_Character1(int label, int x, int y)
     pDerivedObj->x = x;
     pDerivedObj->y = y;
     pDerivedObj->move_cnt = 0;
-    pDerivedObj->move_limit = 5;
+    pDerivedObj->move_limit = 30;
     pDerivedObj->bomb_limit = 1;
     pDerivedObj->bomb_cnt = 0;
     pDerivedObj->live = 5;
@@ -123,12 +123,14 @@ void Character1_update(Elements *self)
         else if (key_state[ALLEGRO_KEY_LEFT])
         {
             chara->dir = false;
+            chara->direction = 1;
             _Character1_update_position(self, -55, 0);
             chara->state = MOVE;
         }
         else if (key_state[ALLEGRO_KEY_RIGHT])
         {
             chara->dir = true;
+            chara->direction = 3;
             _Character1_update_position(self, 55, 0);
             chara->state = MOVE;
         }
@@ -136,12 +138,14 @@ void Character1_update(Elements *self)
         else if (key_state[ALLEGRO_KEY_UP])
         {
             chara->dir = false;
+            chara->direction = 2;
             _Character1_update_position(self, 0, -55);
             chara->state = MOVE;
         }
         else if (key_state[ALLEGRO_KEY_DOWN])
         {
             chara->dir = true;
+            chara->direction = 4;
             _Character1_update_position(self, 0, 55);
             chara->state = MOVE;
         }
@@ -193,7 +197,7 @@ void Character1_update(Elements *self)
             if (chara->gif_status[ATK]->display_index == 0 && (chara->bomb_cnt < chara->bomb_limit)) //chara->new_proj == false
             {
                 Elements *snow;
-                snow = New_Snow_bullet(Snow_bullet_L, chara->x, chara->y,chara->direction, self, 2);
+                snow = New_Snow_bullet(Snow_bullet_L, chara->x, chara->y-60,chara->direction, self, 2);
                 chara->bomb_cnt++;
                 _Register_elements(scene, snow);
                 chara->new_proj = true;
@@ -209,7 +213,11 @@ void Character1_update(Elements *self)
             if (chara->gif_status[ATK]->display_index == 0 && (chara->bomb_cnt < chara->bomb_limit)) //chara->new_proj == false
             {
                 Elements *fire;
-                fire = New_Snow_bullet(Fire_bullet_L, chara->x, chara->y,chara->direction, self, 2);
+                // if(chara->direction == 1 || chara->direction==3)
+                // fire = New_Fire_bullet(Fire_bullet_L, chara->x+(chara->direction-2)*60, chara->y,chara->direction, self, 2);
+                // if(chara->direction == 3 || chara->direction==4)
+                // fire = New_Fire_bullet(Fire_bullet_L, chara->x, chara->y+(chara->direction-3)*60,chara->direction, self, 2);
+                fire = New_Fire_bullet(Fire_bullet_L, chara->x, chara->y,chara->direction, self, 2);
                 chara->bomb_cnt++;
                 _Register_elements(scene, fire);
                 chara->new_proj = true;
@@ -299,4 +307,13 @@ void Character1_interact(Elements *self, Elements *tar) {
             chara->live--;
         }
     }
+    if (tar->label == Fire_bullet_L)
+    {
+        Fire_bullet *fire = (Fire_bullet *)(tar->pDerivedObj);
+        if (fire->hitbox->overlap(fire->hitbox, chara->hitbox) && fire->player != self)
+        {
+            chara->live--;
+        }
+    }
+
 }

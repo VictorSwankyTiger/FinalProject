@@ -2,12 +2,12 @@
 #include "shapes/Shape.h"
 #include <stdbool.h>
 // variables for global usage
-const double FPS = 60.0;
+const double FPS = 30.0;
 const int WIDTH = 1032;
 const int HEIGHT = 770;
 const int BOARD_W = 825;
 const int BOARD_H = 770;
-const int ONE_GRID = 55;
+const int ONE_GRID = 60;
 int window = 0;
 ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 ALLEGRO_EVENT event;
