@@ -3,12 +3,19 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}\\**",
+                "${workspaceFolder}\\..\\allegro\\include"
             ],
             "defines": [
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE"
+            ],
+            "compilerPath": "${workspaceFolder}\\..\\MinGW\\bin\\gcc.exe",
+            "compilerArgs": [
+                "-std=c11",
+                "-Wall",
+                "-Wextra"
             ]
         }
     ],

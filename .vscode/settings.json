@@ -1,0 +1,21 @@
+{
+	"terminal.integrated.env.windows": {
+		"PATH": "${workspaceFolder}\\..\\MinGW\\bin;${env:PATH}"
+	},
+	"files.associations": {
+		"*.tcc": "c",
+		"game_assert.h": "c",
+		"gamewindow.h": "c",
+		"global.h": "c",
+		"stdio.h": "c",
+		"allegro_image.h": "c",
+		"flame.h": "c",
+		"gameover1.h": "c",
+		"allegro_audio.h": "c",
+		"algif.h": "c",
+		"floor.h": "c",
+		"gamescene.h": "c",
+		"charater1.h": "c"
+	},
+	"cmake.sourceDirectory": "C:/I2P1_Final_project-master/allegro_mac/addons/primitives"
+}
