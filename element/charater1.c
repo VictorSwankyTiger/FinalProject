@@ -209,7 +209,7 @@ void Character1_update(Elements *self)
             if (chara->gif_status[ATK]->display_index == 0 && (chara->bomb_cnt < chara->bomb_limit)) //chara->new_proj == false
             {
                 Elements *fire;
-                fire = New_Snow_bullet(Fire_bullet_L, chara->x, chara->y,chara->direction, self, 2);
+                fire = New_Fire_bullet(Fire_bullet_L, chara->x, chara->y,chara->direction, self, 2);
                 chara->bomb_cnt++;
                 _Register_elements(scene, fire);
                 chara->new_proj = true;
@@ -299,4 +299,13 @@ void Character1_interact(Elements *self, Elements *tar) {
             chara->live--;
         }
     }
+    if (tar->label == Fire_bullet_L)
+    {
+        Fire_bullet *fire = (Fire_bullet *)(tar->pDerivedObj);
+        if (fire->hitbox->overlap(fire->hitbox, chara->hitbox) && fire->player != self)
+        {
+            chara->live--;
+        }
+    }
+
 }

@@ -155,7 +155,7 @@ void game_scene_update(Scene *self)
             Character1 *chara = (Character1 *)ele->pDerivedObj;
             if(chara->live <= 0){
                 self->scene_end = true;
-                window = 3;
+                window = 2;
                 return;
             }
         }

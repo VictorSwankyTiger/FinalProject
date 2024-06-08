@@ -1,5 +1,4 @@
 #include "fire.h"
-#include "flame.h"
 #include "../scene/sceneManager.h"
 #include "../shapes/Circle.h"
 /*
@@ -24,6 +23,9 @@ Elements *New_Fire(int label, int x, int y)
     // setting the interact object
     pObj->inter_obj[pObj->inter_len++] = Tree_L;
     pObj->inter_obj[pObj->inter_len++] = Floor_L;
+    pObj->inter_obj[pObj->inter_len++] = Character_L;
+    pObj->inter_obj[pObj->inter_len++] = Character1_L;
+
 
     // setting derived object function
     pObj->pDerivedObj = pDerivedObj;
@@ -36,21 +38,14 @@ Elements *New_Fire(int label, int x, int y)
 }
 void Fire_update(Elements *self)
 {
-    Fire *Obj = ((Fire *)(self->pDerivedObj));
-    Obj->cnt--;
+    
 }
 void _Fire_update_position(Elements *self, int dx, int dy)
 {
-    Fire *Obj = ((Fire *)(self->pDerivedObj));
-    Obj->x += dx;
-    Obj->y += dy;
-    Shape *hitbox = Obj->hitbox;
-    hitbox->update_center_x(hitbox, dx);
-    hitbox->update_center_y(hitbox, dy);
 }
 void Fire_interact(Elements *self, Elements *tar)
 {
-    Fire *Obj = ((Fire *)(self->pDerivedObj));
+   Fire *Obj = ((Fire *)(self->pDerivedObj));
     if (tar->label == Floor_L)
     {
         if (Obj->x < 0 - Obj->width)
@@ -66,15 +61,28 @@ void Fire_interact(Elements *self, Elements *tar)
             self->dele = true;
         }
     }
-   
+    else if (tar->label == Character_L)
+    {
+        Character *chara = ((Character *)(tar->pDerivedObj));
+        if (chara->hitbox->overlap(chara->hitbox, Obj->hitbox))
+        {
+            self->dele = true;
+        }
+    }
+    else if (tar->label == Character1_L)
+    {
+        Character1 *chara = ((Character1 *)(tar->pDerivedObj));
+        if (chara->hitbox->overlap(chara->hitbox, Obj->hitbox))
+        {
+            self->dele = true;
+        }
+    }
 }
+
 void Fire_draw(Elements *self)
 {
     Fire *Obj = ((Fire *)(self->pDerivedObj));
-    if (Obj->v > 0)
-        al_draw_bitmap(Obj->img, Obj->x, Obj->y, ALLEGRO_FLIP_HORIZONTAL);
-    else
-        al_draw_bitmap(Obj->img, Obj->x, Obj->y, 0);
+    al_draw_bitmap(Obj->img, Obj->x, Obj->y, 0);
 }
 void Fire_destory(Elements *self)
 {
