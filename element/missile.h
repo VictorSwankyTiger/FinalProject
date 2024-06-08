@@ -14,6 +14,10 @@ typedef struct _Missile
     int cnt;
     Elements *player;
     ALLEGRO_BITMAP *img;
+    ALLEGRO_BITMAP *img1;
+    ALLEGRO_BITMAP *img2;
+    ALLEGRO_BITMAP *img3;
+
     Shape *hitbox; // the hitbox of object
 } Missile;
 Elements *New_Missile(int label, int x, int y);

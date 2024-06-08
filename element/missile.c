@@ -16,7 +16,7 @@ Elements *New_Missile(int label, int x, int y)
     pDerivedObj->y = y;
     pDerivedObj->player = NULL;
     //pDerivedObj->v = v;
-    pDerivedObj->cnt = 60;
+    pDerivedObj->cnt = 500;
     pDerivedObj->hitbox = New_Circle(pDerivedObj->x + pDerivedObj->width / 2,
                                      pDerivedObj->y + pDerivedObj->height / 2,
                                      min(pDerivedObj->width, pDerivedObj->height) / 2);

@@ -65,7 +65,7 @@ void game_scene_register_map(Scene *self)
             if (gs->map_data[i][j] == 2)
             {
                 Elements *chara;
-                chara = New_Character(Character_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
+                chara = New_Character(Character_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID,i,j);
                 _Register_elements(self, chara);
             }
             if (gs->map_data[i][j] == 3)

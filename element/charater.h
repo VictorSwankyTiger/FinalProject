@@ -25,6 +25,7 @@ typedef enum CharacterType
 typedef struct _Character
 {
     int x, y;
+    int i,j;                        // position on the map
     int width, height;              // the width and height of image
     int move_cnt, move_limit;
     int time_cnt;                   // pause second can't move
@@ -47,7 +48,7 @@ typedef struct _Character
     Shape *hitbox; // the hitbox of object
     ALLEGRO_FONT *font;
 } Character;
-Elements *New_Character(int label, int x, int y);
+Elements *New_Character(int label, int x, int y,int i,int j);
 void _Character_update_position(Elements *self, int dx, int dy);
 void Character_update(Elements *self);
 void Character_interact(Elements *self, Elements *target);

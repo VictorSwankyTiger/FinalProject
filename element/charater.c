@@ -17,7 +17,7 @@
 /*
    [Character function]
 */
-Elements *New_Character(int label, int x, int y)
+Elements *New_Character(int label, int x, int y,int i,int j)
 {
     Character *pDerivedObj = (Character *)malloc(sizeof(Character));
     Elements *pObj = New_Elements(label);
@@ -46,6 +46,8 @@ Elements *New_Character(int label, int x, int y)
     // initial the geometric information of character
     pDerivedObj->width = pDerivedObj->gif_status[0]->width;
     pDerivedObj->height = pDerivedObj->gif_status[0]->height;
+    pDerivedObj->i = i;
+    pDerivedObj->j = j;
     pDerivedObj->x = x;
     pDerivedObj->y = y;
     pDerivedObj->move_cnt = 0;
@@ -105,6 +107,7 @@ void Character_update(Elements *self)
 
         else if (key_state[ALLEGRO_KEY_A])
         {
+            
             chara->dir = false;
             chara->direction = 0;
             chara->state = MOVE;
