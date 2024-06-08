@@ -9,6 +9,7 @@
 #include "fire.h"
 #include "fire_bullet.h"
 #include "flame.h"
+#include "wall.h"
 #include "../shapes/Rectangle.h"
 #include "../algif5/src/algif.h"
 #include <stdio.h>
@@ -74,6 +75,7 @@ Elements *New_Character(int label, int x, int y)
     pObj->inter_obj[pObj->inter_len++] = Fire_bullet_L;
     pObj->inter_obj[pObj->inter_len++] = Snow_bullet_L;
     pObj->inter_obj[pObj->inter_len++] = Missile_bullet_L;
+    pObj->inter_obj[pObj->inter_len++] = Wall_L;
 
     pDerivedObj->snow = false;
     pDerivedObj->missile = false;
@@ -312,7 +314,8 @@ void Character_interact(Elements *self, Elements *tar) {
         Flame *flame = (Flame *)(tar->pDerivedObj);
         if (flame->hitbox->overlap(flame->hitbox, chara->hitbox))
         {
-            chara->live--;
+            chara->live-=flame->damge;
+            flame->damge = 0;
         }
     }
     if (tar->label == Fire_L)
@@ -353,8 +356,10 @@ void Character_interact(Elements *self, Elements *tar) {
         Fire_bullet *fire = (Fire_bullet *)(tar->pDerivedObj);
         if (fire->hitbox->overlap(fire->hitbox, chara->hitbox) && fire->player != self)
         {
-            chara->live--;
-        }
+            chara->live-= fire->damge;
+        }            
+        fire->damge = 0;
+
     }
     if (tar->label == Missile_bullet_L)
     {

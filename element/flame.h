@@ -14,6 +14,7 @@ typedef struct _Flame
     int direction;
     int length;
     int time_cnt;
+    int damge;
     bool created;
     ALLEGRO_BITMAP *img;
     Shape *hitbox; // the hitbox of object

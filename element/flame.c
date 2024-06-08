@@ -14,6 +14,7 @@ Elements *New_Flame(int label, int x, int y, int direction, int length)
     pDerivedObj->height = al_get_bitmap_height(pDerivedObj->img);
     pDerivedObj->x = x;
     pDerivedObj->y = y;
+    pDerivedObj->damge = 1;
     pDerivedObj->time_cnt = 5;
     pDerivedObj->created = 0;
     pDerivedObj->direction = direction;

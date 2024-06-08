@@ -27,6 +27,7 @@ typedef struct _Character
     int x, y;
     int width, height;              // the width and height of image
     int move_cnt, move_limit;
+    int time_cnt;                   // pause second can't move
     int bomb_cnt, bomb_limit;
     int attack_cnt, attack_limit;
     int direction;

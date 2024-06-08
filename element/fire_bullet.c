@@ -14,11 +14,13 @@ Elements *New_Fire_bullet(int label, int x, int y, int direction, Elements* play
     pDerivedObj->height = al_get_bitmap_height(pDerivedObj->img);
     pDerivedObj->x = x;
     pDerivedObj->y = y;
+    pDerivedObj->damge = 1;
     pDerivedObj->time_cnt = 5;
     pDerivedObj->created = 0;
     pDerivedObj->direction = direction;
     pDerivedObj->player = player;
     pDerivedObj->length = length;
+
     // pDerivedObj->v = v;
     pDerivedObj->hitbox = New_Circle(pDerivedObj->x + pDerivedObj->width / 2,
                                      pDerivedObj->y + pDerivedObj->height / 2,

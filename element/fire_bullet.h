@@ -13,6 +13,7 @@ typedef struct _Fire_bullet
     int v;             // the velocity of Fire_bullet
     int direction;
     int time_cnt;
+    int damge;
     bool created;
     int length;
     Elements *player;
