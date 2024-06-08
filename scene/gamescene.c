@@ -19,25 +19,9 @@ Scene *New_GameScene(int label)
     _Register_elements(pObj, New_Teleport(Teleport_L));
     _Register_elements(pObj, New_Tree(Tree_L));
     _Register_elements(pObj, New_Wall(Wall_L,975,725));
-<<<<<<< HEAD
-
-    // int map_data[14][15];
-    // FILE *data;
-    // data = fopen("assets/map/gamescene_map.txt", "r");
-    // for (int i = 0; i < 14; i++)
-    // {
-    //     for (int j = 0; j < 15; j++)
-    //     {
-    //         fscanf(data, "%d", &map_data[i][j]);
-    //         // printf("%d ",floor->map_data[i][j]);
-    //     }
-    //     // printf("\n");
-    // }
-=======
     game_scene_load_map(pObj);
     game_scene_register_map(pObj);
     _Register_elements(pObj, New_Fire(Fire_L,975,725));
->>>>>>> 820babb84e4d09ebab13abda4df0691805fa27f4
     _Register_elements(pObj, New_Snow(Snow_L,200,725));
     _Register_elements(pObj, New_Fire(Fire_L,200,725));
     
