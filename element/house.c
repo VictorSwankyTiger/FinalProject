@@ -1,6 +1,10 @@
 #include "house.h"
 #include "../scene/sceneManager.h"
 #include "../shapes/Circle.h"
+#include "missile_bullet.h"
+#include "fire_bullet.h"
+#include "flame.h"
+
 /*
    [House function]
 */
@@ -14,11 +18,17 @@ Elements *New_House(int label, int x, int y)
     pDerivedObj->height = al_get_bitmap_height(pDerivedObj->img);
     pDerivedObj->x = x;
     pDerivedObj->y = y;
-    //pDerivedObj->v = v;
-  
+    pDerivedObj->hitbox = New_Circle(pDerivedObj->x + pDerivedObj->width / 2,
+                                     pDerivedObj->y + pDerivedObj->height / 2,
+                                     min(pDerivedObj->width, pDerivedObj->height) / 2); 
     // setting the interact object
     pObj->inter_obj[pObj->inter_len++] = Tree_L;
     pObj->inter_obj[pObj->inter_len++] = Floor_L;
+    pObj->inter_obj[pObj->inter_len++] = Flame_L;
+    pObj->inter_obj[pObj->inter_len++] = Missile_bullet_L;
+    pObj->inter_obj[pObj->inter_len++] = Fire_bullet_L;
+
+
     // setting derived object function
     pObj->pDerivedObj = pDerivedObj;
     pObj->Update = House_update;
@@ -50,11 +60,28 @@ void House_interact(Elements *self, Elements *tar)
     else if (tar->label == Tree_L)
     {
         Tree *tree = ((Tree *)(tar->pDerivedObj));
-        // if (tree->hitbox->overlap(tree->hitbox, Obj->hitbox))
-        // {
-        //     self->dele = true;
-        // }
+        if (tree->hitbox->overlap(tree->hitbox, Obj->hitbox))
+        {
+           self->dele = true;
+        }
     }
+    else if (tar->label == Fire_bullet_L)
+    {
+        Fire_bullet *fire = ((Fire_bullet *)(tar->pDerivedObj));
+        if (fire->hitbox->overlap(fire->hitbox, Obj->hitbox))
+        {
+            self->dele = true;
+        }
+    }
+    else if (tar->label == Flame_L)
+    {
+        Flame *fire = ((Flame *)(tar->pDerivedObj));
+        if (fire->hitbox->overlap(fire->hitbox, Obj->hitbox))
+        {
+            self->dele = true;
+        }
+    }
+       
 }
 void House_draw(Elements *self)
 {
@@ -65,6 +92,7 @@ void House_destory(Elements *self)
 {
     House *Obj = ((House *)(self->pDerivedObj));
     al_destroy_bitmap(Obj->img);
+    free(Obj->hitbox);
     free(Obj);
     free(self);
 }
