@@ -41,7 +41,7 @@ Elements *New_Character(int label, int x, int y)
     pDerivedObj->x = x;
     pDerivedObj->y = y;
     pDerivedObj->move_cnt = 0;
-    pDerivedObj->move_limit = 5;
+    pDerivedObj->move_limit = 30;
     pDerivedObj->bomb_limit = 1;
     pDerivedObj->bomb_cnt = 0;
     pDerivedObj->live = 5;
@@ -193,7 +193,7 @@ void Character_update(Elements *self)
             if (chara->gif_status[ATK]->display_index == 0 && (chara->bomb_cnt < chara->bomb_limit)) //chara->new_proj == false
             {
                 Elements *snow;
-                snow = New_Snow_bullet(Snow_bullet_L, chara->x, chara->y,chara->direction, self, 2);
+                snow = New_Snow_bullet(Snow_bullet_L, chara->x, chara->y-60,chara->direction, self, 2);
                 chara->bomb_cnt++;
                 _Register_elements(scene, snow);
                 chara->new_proj = true;
@@ -209,14 +209,13 @@ void Character_update(Elements *self)
             if (chara->gif_status[ATK]->display_index == 0 && (chara->bomb_cnt < chara->bomb_limit)) //chara->new_proj == false
             {
                 Elements *fire;
-                fire = New_Fire_bullet(Fire_bullet_L, chara->x, chara->y,chara->direction, self, 2);
+                fire = New_Fire_bullet(Fire_bullet_L, chara->x, chara->y-60,chara->direction, self, 2);
                 chara->bomb_cnt++;
                 _Register_elements(scene, fire);
                 chara->new_proj = true;
                 chara->atk_mod = b;
             }
         }
-     
     }
 }
 void Character_draw(Elements *self)
