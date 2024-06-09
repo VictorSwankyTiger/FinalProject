@@ -116,7 +116,7 @@ void Character_update(Elements *self)
         {
             chara->dir = false;
             chara->direction = 0;
-            if(MAP[chara->i][chara->j-1] != 1){
+            if(MAP[chara->i][chara->j-1] == 0){
                 chara->state = MOVE;
                 chara->j--;
                 chara->move_cnt++;
@@ -127,7 +127,7 @@ void Character_update(Elements *self)
         {
             chara->dir = true;
             chara->direction = 1;
-            if(MAP[chara->i][chara->j+1] != 1){
+            if(MAP[chara->i][chara->j+1] == 0){
                 chara->state = MOVE;
                 chara->j++;
                 chara->move_cnt++;
@@ -138,7 +138,7 @@ void Character_update(Elements *self)
         {
             chara->dir = false;
             chara->direction = 2;
-            if(MAP[chara->i-1][chara->j] != 1){
+            if(MAP[chara->i-1][chara->j] == 0){
                 chara->state = MOVE;
                 chara->i--;
                 chara->move_cnt++;
@@ -150,7 +150,7 @@ void Character_update(Elements *self)
 
             chara->dir = true;
             chara->direction = 3;
-            if(MAP[chara->i+1][chara->j] != 1){
+            if(MAP[chara->i+1][chara->j] == 0){
                 chara->state = MOVE;
                 chara->i++;
                 chara->move_cnt++;
@@ -225,22 +225,22 @@ void Character_update(Elements *self)
             {
                 Elements *fire;
                 if(chara->direction == 0){
-                    fire = New_Snow_bullet(Snow_bullet_L, chara->x-34, chara->y,chara->direction, self, 2);
+                    fire = New_Snow_bullet(Snow_bullet_L, chara->x-ONE_GRID, chara->y,chara->direction, self, 2);
                     chara->bomb_cnt++;
                     _Register_elements(scene, fire);
                 }
                 if(chara->direction == 1){
-                    fire = New_Snow_bullet(Snow_bullet_L, chara->x+34, chara->y,chara->direction, self, 2);
+                    fire = New_Snow_bullet(Snow_bullet_L, chara->x+ONE_GRID, chara->y,chara->direction, self, 2);
                     chara->bomb_cnt++;
                     _Register_elements(scene, fire);
                 }
                 if(chara->direction == 2){
-                    fire = New_Snow_bullet(Snow_bullet_L, chara->x, chara->y-58,chara->direction, self, 2);
+                    fire = New_Snow_bullet(Snow_bullet_L, chara->x, chara->y-ONE_GRID,chara->direction, self, 2);
                     chara->bomb_cnt++;
                     _Register_elements(scene, fire);
                 }
                 if(chara->direction == 3){
-                    fire = New_Snow_bullet(Snow_bullet_L, chara->x, chara->y+58,chara->direction, self, 2);
+                    fire = New_Snow_bullet(Snow_bullet_L, chara->x, chara->y+ONE_GRID,chara->direction, self, 2);
                     chara->bomb_cnt++;
                     _Register_elements(scene, fire);
                 }

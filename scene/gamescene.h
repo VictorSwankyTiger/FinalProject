@@ -30,21 +30,21 @@ typedef enum EleType
     Floor_L,
     Teleport_L,
     Tree_L,
-    Wall_L,
-    House_L,
     Bomb_L,
     Flame_L,
     Fire_L,
     Snow_L,
     Missile_L,
     Heart_L,
-    Fire_bullet_L,
-    Snow_bullet_L,
     Missile_bullet_L,
     Character_L,
     Character2_L,
     Character1_L,
-    Projectile_L
+    Projectile_L,
+    Wall_L,
+    House_L,
+    Fire_bullet_L,
+    Snow_bullet_L
 } EleType;
 typedef struct _GameScene
 {
