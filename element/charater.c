@@ -53,7 +53,7 @@ Elements *New_Character(int label, int x, int y, int i, int j)
     pDerivedObj->y = y;
     pDerivedObj->move_cnt = 0;
     pDerivedObj->move_limit = 4;
-    pDerivedObj->bomb_limit = 3;
+    pDerivedObj->bomb_limit = 1;
     pDerivedObj->bomb_cnt = 0;
     pDerivedObj->strong_limit = 60;
     pDerivedObj->strong_cnt = 60;
@@ -61,7 +61,7 @@ Elements *New_Character(int label, int x, int y, int i, int j)
     pDerivedObj->attack_limit = 5;
     pDerivedObj->live = 5;
     pDerivedObj->direction = 0;
-    pDerivedObj->power = 5;
+    pDerivedObj->power = 1;
     pDerivedObj->atk_mod = b;
     pDerivedObj->font = al_load_ttf_font("assets/font/pirulen.ttf", 30, 0);
     pDerivedObj->hitbox = New_Rectangle(pDerivedObj->x,
