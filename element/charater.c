@@ -184,6 +184,7 @@ void Character_update(Elements *self)
     }
     else if (chara->state == ATK)
     {
+        al_play_sample_instance(chara->atk_Sound);
         if(chara->atk_mod == b){
             if (chara->gif_status[chara->direction]->done)
             {
@@ -215,6 +216,8 @@ void Character_update(Elements *self)
                 // }
                 // _Register_elements(scene, pro);
                 // chara->new_proj = true;
+                chara->state = STOP;
+
             }
         }
         if(chara->atk_mod == s){
@@ -318,7 +321,7 @@ void Character_draw(Elements *self)
     {
         al_draw_bitmap(frame, chara->x, chara->y, 0);
     }
-    if (chara->state == ATK && chara->gif_status[chara->direction]->display_index == 2)
+    if (chara->state == ATK)
     {
         al_play_sample_instance(chara->atk_Sound);
     }

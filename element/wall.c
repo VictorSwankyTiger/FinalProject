@@ -19,6 +19,10 @@ Elements *New_Wall(int label, int x, int y)
     // setting the interact object
     pObj->inter_obj[pObj->inter_len++] = Tree_L;
     pObj->inter_obj[pObj->inter_len++] = Floor_L;
+    pObj->inter_obj[pObj->inter_len++] = Character_L;
+    pObj->inter_obj[pObj->inter_len++] = Character1_L;
+    pObj->inter_obj[pObj->inter_len++] = Character1_L;
+
     // setting derived object function
     pObj->pDerivedObj = pDerivedObj;
     pObj->Update = Wall_update;

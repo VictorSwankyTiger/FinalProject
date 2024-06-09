@@ -15,6 +15,10 @@ Elements *New_Missile_bullet(int label, int x, int y, int direction, Elements* p
     pDerivedObj->img3 = al_load_bitmap("assets/image/missile3.png");
     pDerivedObj->width = al_get_bitmap_width(pDerivedObj->img);
     pDerivedObj->height = al_get_bitmap_height(pDerivedObj->img);
+    ALLEGRO_SAMPLE *sample = al_load_sample("assets/sound/missile.mp3");
+    pDerivedObj->atk_Sound = al_create_sample_instance(sample);
+    al_set_sample_instance_playmode(pDerivedObj->atk_Sound, ALLEGRO_PLAYMODE_ONCE);
+    al_attach_sample_instance_to_mixer(pDerivedObj->atk_Sound, al_get_default_mixer());
     pDerivedObj->x = x;
     pDerivedObj->y = y;
     pDerivedObj->time_cnt = 5;
@@ -84,6 +88,7 @@ void Missile_bullet_interact(Elements *self, Elements *tar)
 void Missile_bullet_draw(Elements *self)
 {
     Missile_bullet *Obj = ((Missile_bullet *)(self->pDerivedObj));
+    al_play_sample_instance(Obj->atk_Sound);
     if(Obj->direction == 0)
     al_draw_bitmap(Obj->img3, Obj->x-ONE_GRID, Obj->y+ONE_GRID, 0);
     if(Obj->direction == 1)
@@ -97,6 +102,7 @@ void Missile_bullet_destory(Elements *self)
 {
     Missile_bullet *Obj = ((Missile_bullet *)(self->pDerivedObj));
     al_destroy_bitmap(Obj->img);
+    al_destroy_sample_instance(Obj->atk_Sound);
     free(Obj->hitbox);
     free(Obj);
     free(self);
