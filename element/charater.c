@@ -223,22 +223,22 @@ void Character_update(Elements *self)
             {
                 Elements *fire;
                 if(chara->direction == 0){
-                    fire = New_Snow_bullet(Snow_bullet_L, chara->x-34, chara->y,chara->direction, self, 2);
+                    fire = New_Snow_bullet(Snow_bullet_L, chara->x-ONE_GRID, chara->y,chara->direction, self, 2);
                     chara->bomb_cnt++;
                     _Register_elements(scene, fire);
                 }
                 if(chara->direction == 1){
-                    fire = New_Snow_bullet(Snow_bullet_L, chara->x+34, chara->y,chara->direction, self, 2);
+                    fire = New_Snow_bullet(Snow_bullet_L, chara->x+ONE_GRID, chara->y,chara->direction, self, 2);
                     chara->bomb_cnt++;
                     _Register_elements(scene, fire);
                 }
                 if(chara->direction == 2){
-                    fire = New_Snow_bullet(Snow_bullet_L, chara->x, chara->y-58,chara->direction, self, 2);
+                    fire = New_Snow_bullet(Snow_bullet_L, chara->x, chara->y-ONE_GRID,chara->direction, self, 2);
                     chara->bomb_cnt++;
                     _Register_elements(scene, fire);
                 }
                 if(chara->direction == 3){
-                    fire = New_Snow_bullet(Snow_bullet_L, chara->x, chara->y+58,chara->direction, self, 2);
+                    fire = New_Snow_bullet(Snow_bullet_L, chara->x, chara->y+ONE_GRID,chara->direction, self, 2);
                     chara->bomb_cnt++;
                     _Register_elements(scene, fire);
                 }
