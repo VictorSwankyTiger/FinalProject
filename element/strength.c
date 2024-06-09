@@ -1,16 +1,16 @@
-#include "snow.h"
+#include "strength.h"
 #include "../scene/sceneManager.h"
 #include "../shapes/Circle.h"
 #include "../shapes/Rectangle.h"
 /*
-   [Snow function]
+   [Strength function]
 */
-Elements *New_Snow(int label, int x, int y)
+Elements *New_Strength(int label, int x, int y)
 {
-    Snow *pDerivedObj = (Snow *)malloc(sizeof(Snow));
+    Strength *pDerivedObj = (Strength *)malloc(sizeof(Strength));
     Elements *pObj = New_Elements(label);
     // setting derived object member
-    pDerivedObj->img = al_load_bitmap("assets/image/snow.png");
+    pDerivedObj->img = al_load_bitmap("assets/image/strength.png");
     pDerivedObj->width = al_get_bitmap_width(pDerivedObj->img);
     pDerivedObj->height = al_get_bitmap_height(pDerivedObj->img);
     pDerivedObj->x = x;
@@ -31,23 +31,23 @@ Elements *New_Snow(int label, int x, int y)
 
     // setting derived object function
     pObj->pDerivedObj = pDerivedObj;
-    pObj->Update = Snow_update;
-    pObj->Interact = Snow_interact;
-    pObj->Draw = Snow_draw;
-    pObj->Destroy = Snow_destory;
+    pObj->Update = Strength_update;
+    pObj->Interact = Strength_interact;
+    pObj->Draw = Strength_draw;
+    pObj->Destroy = Strength_destory;
 
     return pObj;
 }
-void Snow_update(Elements *self)
+void Strength_update(Elements *self)
 {
     
 }
-void _Snow_update_position(Elements *self, int dx, int dy)
+void _Strength_update_position(Elements *self, int dx, int dy)
 {
 }
-void Snow_interact(Elements *self, Elements *tar)
+void Strength_interact(Elements *self, Elements *tar)
 {
-   Snow *Obj = ((Snow *)(self->pDerivedObj));
+   Strength *Obj = ((Strength *)(self->pDerivedObj));
     if (tar->label == Floor_L)
     {
         if (Obj->x < 0 - Obj->width)
@@ -81,14 +81,14 @@ void Snow_interact(Elements *self, Elements *tar)
     }
 }
 
-void Snow_draw(Elements *self)
+void Strength_draw(Elements *self)
 {
-    Snow *Obj = ((Snow *)(self->pDerivedObj));
+    Strength *Obj = ((Strength *)(self->pDerivedObj));
     al_draw_bitmap(Obj->img, Obj->x, Obj->y, 0);
 }
-void Snow_destory(Elements *self)
+void Strength_destory(Elements *self)
 {
-    Snow *Obj = ((Snow *)(self->pDerivedObj));
+    Strength *Obj = ((Strength *)(self->pDerivedObj));
     al_destroy_bitmap(Obj->img);
     free(Obj->hitbox);
     free(Obj);

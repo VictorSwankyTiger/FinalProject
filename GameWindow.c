@@ -103,7 +103,7 @@ void game_init(Game *self)
     event_queue = al_create_event_queue();
     GAME_ASSERT(event_queue, "failed to create event queue.");
     // Initialize Allegro settings
-    al_set_window_position(self->display, 200, 200); //(self->display, 0, 0);
+    al_set_window_position(self->display, 200, 100); //(self->display, 0, 0);
     al_set_window_title(self->display, self->title);
     // Register event
     al_register_event_source(event_queue, al_get_display_event_source(self->display)); // register display event

@@ -1,6 +1,7 @@
 #include "fire_bullet.h"
 #include "../scene/sceneManager.h"
 #include "../shapes/Circle.h"
+#include "../shapes/Rectangle.h"
 /*
    [Fire_bullet function]
 */
@@ -14,15 +15,18 @@ Elements *New_Fire_bullet(int label, int x, int y, int direction, Elements* play
     pDerivedObj->height = al_get_bitmap_height(pDerivedObj->img);
     pDerivedObj->x = x;
     pDerivedObj->y = y;
+    pDerivedObj->damge = 1;
     pDerivedObj->time_cnt = 5;
     pDerivedObj->created = 0;
     pDerivedObj->direction = direction;
     pDerivedObj->player = player;
     pDerivedObj->length = length;
+
     // pDerivedObj->v = v;
-    pDerivedObj->hitbox = New_Circle(pDerivedObj->x + pDerivedObj->width / 2,
-                                     pDerivedObj->y + pDerivedObj->height / 2,
-                                     min(pDerivedObj->width, pDerivedObj->height) / 2);
+    pDerivedObj->hitbox = New_Rectangle(pDerivedObj->x,
+                                        pDerivedObj->y,
+                                        pDerivedObj->x + ONE_GRID/2,
+                                        pDerivedObj->y + ONE_GRID/2);
     // setting the interact object
     pObj->inter_obj[pObj->inter_len++] = Tree_L;
     pObj->inter_obj[pObj->inter_len++] = Floor_L;
@@ -43,32 +47,19 @@ void Fire_bullet_update(Elements *self)
     if(!Obj->created && Obj->length){
         Elements *Fire_bullet;
         if(Obj->direction == 0){
-            Fire_bullet = New_Fire_bullet(Fire_bullet_L, Obj->x, Obj->y - 55, Obj->direction,Obj->player, Obj->length-1);
+            Fire_bullet = New_Fire_bullet(Fire_bullet_L, Obj->x-ONE_GRID, Obj->y, Obj->direction,Obj->player, Obj->length-1);
             _Register_elements(scene, Fire_bullet);
         }
         if(Obj->direction == 1){
-            Fire_bullet = New_Fire_bullet(Fire_bullet_L, Obj->x + 55, Obj->y, Obj->direction,Obj->player, Obj->length-1);
+            Fire_bullet = New_Fire_bullet(Fire_bullet_L, Obj->x+ONE_GRID, Obj->y, Obj->direction,Obj->player, Obj->length-1);
             _Register_elements(scene, Fire_bullet);
         }
         if(Obj->direction == 2){
-            Fire_bullet = New_Fire_bullet(Fire_bullet_L, Obj->x, Obj->y + 55, Obj->direction,Obj->player, Obj->length-1);
+            Fire_bullet = New_Fire_bullet(Fire_bullet_L, Obj->x, Obj->y-ONE_GRID, Obj->direction,Obj->player, Obj->length-1);
             _Register_elements(scene, Fire_bullet);
         }
         if(Obj->direction == 3){
-            Fire_bullet = New_Fire_bullet(Fire_bullet_L, Obj->x - 55, Obj->y, Obj->direction,Obj->player, Obj->length-1);
-            _Register_elements(scene, Fire_bullet);
-        }
-        if(Obj->direction == 4){
-            Fire_bullet = New_Fire_bullet(Fire_bullet_L, Obj->x, Obj->y - 55, 0,Obj->player, Obj->length-1);
-            _Register_elements(scene, Fire_bullet);
-        
-            Fire_bullet = New_Fire_bullet(Fire_bullet_L, Obj->x + 55, Obj->y, 1,Obj->player, Obj->length-1);
-            _Register_elements(scene, Fire_bullet);
-        
-            Fire_bullet = New_Fire_bullet(Fire_bullet_L, Obj->x, Obj->y + 55, 2,Obj->player, Obj->length-1);
-            _Register_elements(scene, Fire_bullet);
-        
-            Fire_bullet = New_Fire_bullet(Fire_bullet_L, Obj->x - 55, Obj->y, 3,Obj->player, Obj->length-1);
+            Fire_bullet = New_Fire_bullet(Fire_bullet_L, Obj->x , Obj->y+ONE_GRID, Obj->direction,Obj->player, Obj->length-1);
             _Register_elements(scene, Fire_bullet);
         }
         Obj->created = 1;

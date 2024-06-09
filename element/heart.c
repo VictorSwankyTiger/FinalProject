@@ -1,16 +1,16 @@
-#include "snow.h"
+#include "heart.h"
 #include "../scene/sceneManager.h"
 #include "../shapes/Circle.h"
 #include "../shapes/Rectangle.h"
 /*
-   [Snow function]
+   [Heart function]
 */
-Elements *New_Snow(int label, int x, int y)
+Elements *New_Heart(int label, int x, int y)
 {
-    Snow *pDerivedObj = (Snow *)malloc(sizeof(Snow));
+    Heart *pDerivedObj = (Heart *)malloc(sizeof(Heart));
     Elements *pObj = New_Elements(label);
     // setting derived object member
-    pDerivedObj->img = al_load_bitmap("assets/image/snow.png");
+    pDerivedObj->img = al_load_bitmap("assets/image/heart.png");
     pDerivedObj->width = al_get_bitmap_width(pDerivedObj->img);
     pDerivedObj->height = al_get_bitmap_height(pDerivedObj->img);
     pDerivedObj->x = x;
@@ -31,23 +31,23 @@ Elements *New_Snow(int label, int x, int y)
 
     // setting derived object function
     pObj->pDerivedObj = pDerivedObj;
-    pObj->Update = Snow_update;
-    pObj->Interact = Snow_interact;
-    pObj->Draw = Snow_draw;
-    pObj->Destroy = Snow_destory;
+    pObj->Update = Heart_update;
+    pObj->Interact = Heart_interact;
+    pObj->Draw = Heart_draw;
+    pObj->Destroy = Heart_destory;
 
     return pObj;
 }
-void Snow_update(Elements *self)
+void Heart_update(Elements *self)
 {
     
 }
-void _Snow_update_position(Elements *self, int dx, int dy)
+void _Heart_update_position(Elements *self, int dx, int dy)
 {
 }
-void Snow_interact(Elements *self, Elements *tar)
+void Heart_interact(Elements *self, Elements *tar)
 {
-   Snow *Obj = ((Snow *)(self->pDerivedObj));
+   Heart *Obj = ((Heart *)(self->pDerivedObj));
     if (tar->label == Floor_L)
     {
         if (Obj->x < 0 - Obj->width)
@@ -81,14 +81,14 @@ void Snow_interact(Elements *self, Elements *tar)
     }
 }
 
-void Snow_draw(Elements *self)
+void Heart_draw(Elements *self)
 {
-    Snow *Obj = ((Snow *)(self->pDerivedObj));
+    Heart *Obj = ((Heart *)(self->pDerivedObj));
     al_draw_bitmap(Obj->img, Obj->x, Obj->y, 0);
 }
-void Snow_destory(Elements *self)
+void Heart_destory(Elements *self)
 {
-    Snow *Obj = ((Snow *)(self->pDerivedObj));
+    Heart *Obj = ((Heart *)(self->pDerivedObj));
     al_destroy_bitmap(Obj->img);
     free(Obj->hitbox);
     free(Obj);

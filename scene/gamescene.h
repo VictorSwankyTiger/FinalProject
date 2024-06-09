@@ -10,6 +10,9 @@
 #include "../element/tree.h"
 #include "../element/projectile.h"
 #include "../element/fire.h"
+#include "../element/heart.h"
+#include "../element/buff.h"
+#include "../element/strength.h"
 #include "../element/house.h"
 #include "../element/missile.h"
 #include "../element/snow.h"
@@ -29,20 +32,23 @@ typedef enum EleType
     Floor_L,
     Teleport_L,
     Tree_L,
-    Wall_L,
-    House_L,
     Bomb_L,
     Flame_L,
     Fire_L,
     Snow_L,
     Missile_L,
-    Fire_bullet_L,
-    Snow_bullet_L,
+    Heart_L,
+    Buff_L,
+    Stren_L,
     Missile_bullet_L,
     Character_L,
     Character2_L,
     Character1_L,
-    Projectile_L
+    Projectile_L,
+    Wall_L,
+    House_L,
+    Fire_bullet_L,
+    Snow_bullet_L
 } EleType;
 typedef struct _GameScene
 {
@@ -50,6 +56,7 @@ typedef struct _GameScene
     ALLEGRO_FONT *font;
 
     int map_data[14][15];
+    int item_map[14][15];
     int x;
     int y;
     int map_x;

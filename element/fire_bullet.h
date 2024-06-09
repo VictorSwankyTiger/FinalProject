@@ -11,8 +11,10 @@ typedef struct _Fire_bullet
     int x, y;          // the position of image
     int width, height; // the width and height of image
     int v;             // the velocity of Fire_bullet
+    int mode;          // who create this object
     int direction;
     int time_cnt;
+    int damge;
     bool created;
     int length;
     Elements *player;

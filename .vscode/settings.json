@@ -15,7 +15,10 @@
 		"algif.h": "c",
 		"floor.h": "c",
 		"gamescene.h": "c",
-		"charater1.h": "c"
+		"charater1.h": "c",
+		"scenemanager.h": "c",
+		"rectangle.h": "c",
+		"circle.h": "c"
 	},
 	"cmake.sourceDirectory": "C:/I2P1_Final_project-master/allegro_mac/addons/primitives"
 }

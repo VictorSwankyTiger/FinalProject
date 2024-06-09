@@ -4,23 +4,31 @@
 #include "missile_bullet.h"
 #include "fire_bullet.h"
 #include "flame.h"
+#include "../shapes/Rectangle.h"
 
 /*
    [House function]
 */
-Elements *New_House(int label, int x, int y)
+Elements *New_House(int label, int x, int y,int i,int j)
 {
     House *pDerivedObj = (House *)malloc(sizeof(House));
     Elements *pObj = New_Elements(label);
     // setting derived object member
-    pDerivedObj->img = al_load_bitmap("assets/image/house.png");
+    pDerivedObj->img = al_load_bitmap("assets/image/box.png");
     pDerivedObj->width = al_get_bitmap_width(pDerivedObj->img);
     pDerivedObj->height = al_get_bitmap_height(pDerivedObj->img);
     pDerivedObj->x = x;
     pDerivedObj->y = y;
-    pDerivedObj->hitbox = New_Circle(pDerivedObj->x + pDerivedObj->width / 2,
-                                     pDerivedObj->y + pDerivedObj->height / 2,
-                                     min(pDerivedObj->width, pDerivedObj->height) / 2); 
+    pDerivedObj->i = i;
+    pDerivedObj->j = j;
+    pDerivedObj->hitbox = New_Rectangle(pDerivedObj->x,
+                                        pDerivedObj->y,
+                                        pDerivedObj->x + ONE_GRID/2,
+                                        pDerivedObj->y + ONE_GRID/2);
+    ALLEGRO_SAMPLE *sample = al_load_sample("assets/sound/small_explosion1.mp3");
+    pDerivedObj->exp = al_create_sample_instance(sample);
+    al_set_sample_instance_playmode(pDerivedObj->exp, ALLEGRO_PLAYMODE_ONCE);
+    al_attach_sample_instance_to_mixer(pDerivedObj->exp, al_get_default_mixer());
     // setting the interact object
     pObj->inter_obj[pObj->inter_len++] = Tree_L;
     pObj->inter_obj[pObj->inter_len++] = Floor_L;
@@ -62,7 +70,9 @@ void House_interact(Elements *self, Elements *tar)
         Tree *tree = ((Tree *)(tar->pDerivedObj));
         if (tree->hitbox->overlap(tree->hitbox, Obj->hitbox))
         {
-           self->dele = true;
+            self->dele = true;
+            MAP[Obj->i][Obj->j] = 0;
+
         }
     }
     else if (tar->label == Fire_bullet_L)
@@ -71,6 +81,8 @@ void House_interact(Elements *self, Elements *tar)
         if (fire->hitbox->overlap(fire->hitbox, Obj->hitbox))
         {
             self->dele = true;
+            MAP[Obj->i][Obj->j] = 0;
+
         }
     }
     else if (tar->label == Flame_L)
@@ -79,6 +91,20 @@ void House_interact(Elements *self, Elements *tar)
         if (fire->hitbox->overlap(fire->hitbox, Obj->hitbox))
         {
             self->dele = true;
+            MAP[Obj->i][Obj->j] = 0;
+
+        }
+    }
+    else if (tar->label == Missile_bullet_L)
+    {
+        Missile_bullet *fire = ((Missile_bullet *)(tar->pDerivedObj));
+        if (fire->hitbox->overlap(fire->hitbox, Obj->hitbox))
+        {
+            self->dele = true;
+                al_play_sample_instance(Obj->exp);
+
+            MAP[Obj->i][Obj->j] = 0;
+
         }
     }
        
@@ -92,6 +118,8 @@ void House_destory(Elements *self)
 {
     House *Obj = ((House *)(self->pDerivedObj));
     al_destroy_bitmap(Obj->img);
+        al_destroy_sample_instance(Obj->exp);
+
     free(Obj->hitbox);
     free(Obj);
     free(self);

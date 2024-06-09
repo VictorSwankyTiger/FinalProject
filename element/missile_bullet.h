@@ -16,7 +16,11 @@ typedef struct _Missile_bullet
     bool created;
     int length;
     Elements *player;
+    ALLEGRO_SAMPLE_INSTANCE *atk_Sound;
     ALLEGRO_BITMAP *img;
+    ALLEGRO_BITMAP *img1;
+    ALLEGRO_BITMAP *img2;
+    ALLEGRO_BITMAP *img3;
     Shape *hitbox; // the hitbox of object
 } Missile_bullet;
 Elements *New_Missile_bullet(int label, int x, int y, int direction, Elements *player,int length);

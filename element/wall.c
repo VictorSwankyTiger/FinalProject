@@ -9,7 +9,7 @@ Elements *New_Wall(int label, int x, int y)
     Wall *pDerivedObj = (Wall *)malloc(sizeof(Wall));
     Elements *pObj = New_Elements(label);
     // setting derived object member
-    pDerivedObj->img = al_load_bitmap("assets/image/barrier.png");
+    pDerivedObj->img = al_load_bitmap("assets/image/block.png");
     pDerivedObj->width = al_get_bitmap_width(pDerivedObj->img);
     pDerivedObj->height = al_get_bitmap_height(pDerivedObj->img);
     pDerivedObj->x = x;
@@ -19,6 +19,10 @@ Elements *New_Wall(int label, int x, int y)
     // setting the interact object
     pObj->inter_obj[pObj->inter_len++] = Tree_L;
     pObj->inter_obj[pObj->inter_len++] = Floor_L;
+    pObj->inter_obj[pObj->inter_len++] = Character_L;
+    pObj->inter_obj[pObj->inter_len++] = Character1_L;
+    pObj->inter_obj[pObj->inter_len++] = Character1_L;
+
     // setting derived object function
     pObj->pDerivedObj = pDerivedObj;
     pObj->Update = Wall_update;

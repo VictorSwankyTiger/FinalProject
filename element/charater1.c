@@ -80,36 +80,7 @@ void Character1_update(Elements *self)
 {
     // use the idea of finite state machine to deal with different state
     Character1 *chara = ((Character1 *)(self->pDerivedObj));
-    if (key_state[ALLEGRO_KEY_RCTRL])
-        {
-            chara->state = ATK;
-        }
-        else if (key_state[ALLEGRO_KEY_LEFT])
-        {
-            chara->dir = false;
-            chara->state = MOVE;
-        }
-        else if (key_state[ALLEGRO_KEY_RIGHT])
-        {
-            chara->dir = true;
-            chara->state = MOVE;
-        }
-
-        else if (key_state[ALLEGRO_KEY_UP])
-        {
-            chara->dir = false;
-            chara->state = MOVE;
-        }
-        else if (key_state[ALLEGRO_KEY_DOWN])
-        {
-            chara->dir = true;
-            chara->state = MOVE;
-        }
-
-        else
-        {
-            chara->state = STOP;
-        }
+    
     if (chara->state == STOP)
     {
         if (key_state[ALLEGRO_KEY_RCTRL])
@@ -193,11 +164,11 @@ void Character1_update(Elements *self)
             }
             if (chara->gif_status[ATK]->display_index == 0 && (chara->bomb_cnt < chara->bomb_limit)) //chara->new_proj == false
             {
-                Elements *bomb;
-                bomb = New_Bomb(Bomb_L, chara->x, chara->y, self);
-                chara->bomb_cnt++;
-                _Register_elements(scene, bomb);
-                chara->new_proj = true;
+                // Elements *bomb;
+                // bomb = New_Bomb(Bomb_L, chara->x, chara->y, self);
+                // chara->bomb_cnt++;
+                // _Register_elements(scene, bomb);
+                // chara->new_proj = true;
             }
         }
         if(chara->atk_mod == s){
@@ -253,6 +224,11 @@ void Character1_update(Elements *self)
                 chara->new_proj = true;
                 chara->atk_mod = b;
             }
+        }
+        if (chara->gif_status[chara->state]->done)
+        {
+            chara->state = STOP;
+            chara->new_proj = false;
         }
     }
 }
