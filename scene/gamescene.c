@@ -116,7 +116,7 @@ void game_scene_register_map(Scene *self)
             if (gs->map_data[i][j] == 8)
             {
                 Elements *house;
-                house = New_House(House_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
+                house = New_House(House_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID,i,j);
                 _Register_elements(self, house);
 
                 MAP[i][j] = 1;

@@ -85,6 +85,7 @@ void Missile_draw(Elements *self)
 {
     Missile *Obj = ((Missile *)(self->pDerivedObj));
     al_draw_bitmap(Obj->img, Obj->x, Obj->y, 0);
+    
 }
 void Missile_destory(Elements *self)
 {

@@ -9,7 +9,7 @@
 /*
    [House function]
 */
-Elements *New_House(int label, int x, int y)
+Elements *New_House(int label, int x, int y,int i,int j)
 {
     House *pDerivedObj = (House *)malloc(sizeof(House));
     Elements *pObj = New_Elements(label);
@@ -19,6 +19,8 @@ Elements *New_House(int label, int x, int y)
     pDerivedObj->height = al_get_bitmap_height(pDerivedObj->img);
     pDerivedObj->x = x;
     pDerivedObj->y = y;
+    pDerivedObj->i = i;
+    pDerivedObj->j = j;
     pDerivedObj->hitbox = New_Rectangle(pDerivedObj->x,
                                         pDerivedObj->y,
                                         pDerivedObj->x + ONE_GRID/2,
@@ -64,7 +66,9 @@ void House_interact(Elements *self, Elements *tar)
         Tree *tree = ((Tree *)(tar->pDerivedObj));
         if (tree->hitbox->overlap(tree->hitbox, Obj->hitbox))
         {
-           self->dele = true;
+            self->dele = true;
+            MAP[Obj->i][Obj->j] = 0;
+
         }
     }
     else if (tar->label == Fire_bullet_L)
@@ -73,6 +77,8 @@ void House_interact(Elements *self, Elements *tar)
         if (fire->hitbox->overlap(fire->hitbox, Obj->hitbox))
         {
             self->dele = true;
+            MAP[Obj->i][Obj->j] = 0;
+
         }
     }
     else if (tar->label == Flame_L)
@@ -81,6 +87,18 @@ void House_interact(Elements *self, Elements *tar)
         if (fire->hitbox->overlap(fire->hitbox, Obj->hitbox))
         {
             self->dele = true;
+            MAP[Obj->i][Obj->j] = 0;
+
+        }
+    }
+    else if (tar->label == Missile_L)
+    {
+        Missile_bullet *fire = ((Missile_bullet *)(tar->pDerivedObj));
+        if (fire->hitbox->overlap(fire->hitbox, Obj->hitbox))
+        {
+            self->dele = true;
+            MAP[Obj->i][Obj->j] = 0;
+
         }
     }
        

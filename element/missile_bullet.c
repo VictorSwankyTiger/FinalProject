@@ -103,8 +103,8 @@ void Missile_bullet_draw(Elements *self)
 void Missile_bullet_destory(Elements *self)
 {
     Missile_bullet *Obj = ((Missile_bullet *)(self->pDerivedObj));
-    al_destroy_bitmap(Obj->img);
     al_destroy_sample_instance(Obj->atk_Sound);
+    al_destroy_bitmap(Obj->img);
     free(Obj->hitbox);
     free(Obj);
     free(self);

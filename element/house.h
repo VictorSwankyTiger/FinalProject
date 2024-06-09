@@ -9,12 +9,13 @@
 typedef struct _House
 {
     int x, y;          // the position of image
+    int i,j;
     int width, height; // the width and height of image
     ALLEGRO_BITMAP *img;
     Shape *hitbox; // the hitbox of object
 
 } House;
-Elements *New_House(int label, int x, int y);
+Elements *New_House(int label, int x, int y,int i,int j);
 void House_update(Elements *self);
 void House_interact(Elements *self, Elements *tar);
 void House_draw(Elements *self);
