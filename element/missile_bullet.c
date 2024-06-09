@@ -35,6 +35,7 @@ Elements *New_Missile_bullet(int label, int x, int y, int direction, Elements* p
     // setting the interact object
     pObj->inter_obj[pObj->inter_len++] = Tree_L;
     pObj->inter_obj[pObj->inter_len++] = Floor_L;
+    pObj->inter_obj[pObj->inter_len++] = House_L;
     // setting derived object function
     pObj->pDerivedObj = pDerivedObj;
     pObj->Update = Missile_bullet_update;
@@ -81,6 +82,22 @@ void Missile_bullet_interact(Elements *self, Elements *tar)
     else if (tar->label == Tree_L)
     {
         Tree *tree = ((Tree *)(tar->pDerivedObj));
+        if (tree->hitbox->overlap(tree->hitbox, Obj->hitbox))
+        {
+            self->dele = true;
+        }
+    }
+    else if (tar->label == Tree_L)
+    {
+        Tree *tree = ((Tree *)(tar->pDerivedObj));
+        if (tree->hitbox->overlap(tree->hitbox, Obj->hitbox))
+        {
+            self->dele = true;
+        }
+    }
+    else if (tar->label == House_L)
+    {
+        House *tree = ((House *)(tar->pDerivedObj));
         if (tree->hitbox->overlap(tree->hitbox, Obj->hitbox))
         {
             self->dele = true;

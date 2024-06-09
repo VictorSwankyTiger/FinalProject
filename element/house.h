@@ -12,6 +12,7 @@ typedef struct _House
     int i,j;
     int width, height; // the width and height of image
     ALLEGRO_BITMAP *img;
+    ALLEGRO_SAMPLE_INSTANCE *exp;
     Shape *hitbox; // the hitbox of object
 
 } House;

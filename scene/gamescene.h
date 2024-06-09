@@ -50,6 +50,7 @@ typedef struct _GameScene
     ALLEGRO_FONT *font;
 
     int map_data[14][15];
+    int item_map[14][15];
     int x;
     int y;
     int map_x;

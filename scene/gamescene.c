@@ -44,6 +44,14 @@ void game_scene_load_map(Scene *self)
             fscanf(data, "%d", &gs->map_data[i][j]);
         }
     }
+    data = fopen("assets/map/item_map.txt", "r");
+    for (int i = 0; i < 14; i++)
+    {
+        for (int j = 0; j < 15; j++)
+        {
+            fscanf(data, "%d", &gs->item_map[i][j]);
+        }
+    }
     fclose(data);
 }
 void game_scene_register_map(Scene *self)
@@ -51,6 +59,8 @@ void game_scene_register_map(Scene *self)
     GameScene *gs = ((GameScene *)(self->pDerivedObj));
     Elements *ele;
     int label;
+
+
     for (int i = 0; i < 14; i++)
     {
         for (int j = 0; j < 15; j++)
@@ -63,7 +73,14 @@ void game_scene_register_map(Scene *self)
 
                 MAP[i][j] = 1;
             }
+            if (gs->map_data[i][j] == 8)
+            {
+                Elements *house;
+                house = New_House(House_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID,i,j);
+                _Register_elements(self, house);
 
+                MAP[i][j] = 1;
+            }
             if (gs->map_data[i][j] == 2)
             {
                 Elements *chara;
@@ -113,16 +130,10 @@ void game_scene_register_map(Scene *self)
 
                 MAP[i][j] = 0;
             }
-            if (gs->map_data[i][j] == 8)
-            {
-                Elements *house;
-                house = New_House(House_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID,i,j);
-                _Register_elements(self, house);
-
-                MAP[i][j] = 1;
-            }
+            
         }
     }
+
 }
 void game_scene_update(Scene *self)
 {
