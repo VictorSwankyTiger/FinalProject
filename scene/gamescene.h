@@ -40,7 +40,6 @@ typedef enum EleType
     Heart_L,
     Buff_L,
     Stren_L,
-    Missile_bullet_L,
     Character_L,
     Character2_L,
     Character1_L,
@@ -48,7 +47,8 @@ typedef enum EleType
     Wall_L,
     House_L,
     Fire_bullet_L,
-    Snow_bullet_L
+    Snow_bullet_L,
+    Missile_bullet_L
 } EleType;
 typedef struct _GameScene
 {

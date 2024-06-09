@@ -18,7 +18,8 @@
 		"charater1.h": "c",
 		"scenemanager.h": "c",
 		"rectangle.h": "c",
-		"circle.h": "c"
+		"circle.h": "c",
+		"missile_bullet.h": "c"
 	},
 	"cmake.sourceDirectory": "C:/I2P1_Final_project-master/allegro_mac/addons/primitives"
 }

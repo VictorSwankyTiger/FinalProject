@@ -297,7 +297,7 @@ void Character_update(Elements *self)
             if (chara->gif_status[chara->direction]->display_index == 0 && (chara->bomb_cnt < chara->bomb_limit)) //chara->new_proj == false
             {
                 Elements *missile;
-                missile = New_Missile_bullet(Missile_bullet_L, chara->x, chara->y-60,chara->direction, self, 2);  
+                missile = New_Missile_bullet(Missile_bullet_L, chara->x, chara->y, chara->direction, self, 2);  
                 chara->bomb_cnt++;
                 _Register_elements(scene, missile);
                 chara->new_proj = true;
