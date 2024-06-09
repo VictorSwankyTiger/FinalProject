@@ -130,6 +130,41 @@ void game_scene_register_map(Scene *self)
 
                 MAP[i][j] = 0;
             }
+
+            
+        }
+    }
+
+    for (int i = 0; i < 14; i++)
+    {
+        for (int j = 0; j < 15; j++)
+        {
+            if (gs->item_map[i][j] == 4)
+            {
+                Elements *snow;
+                snow = New_Snow(Snow_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
+                _Register_elements(self, snow);
+
+            }
+            if (gs->item_map[i][j] == 5)
+            {
+                Elements *fire;
+                fire = New_Fire(Fire_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
+                _Register_elements(self, fire);
+            }
+            if (gs->item_map[i][j] == 6)
+            {
+                Elements *missile;
+                missile = New_Missile(Missile_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
+                _Register_elements(self, missile);
+            }
+            if (gs->item_map[i][j] == 7)
+            {
+                Elements *heart;
+                heart = New_Heart(Heart_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
+                _Register_elements(self, heart);
+            }
+            
             
         }
     }

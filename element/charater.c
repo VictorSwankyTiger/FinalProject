@@ -3,6 +3,7 @@
 #include "projectile.h"
 #include "bomb.h"
 #include "snow.h"
+#include "heart.h"
 #include "snow_bullet.h"
 #include "missile.h"
 #include "missile_bullet.h"
@@ -81,6 +82,7 @@ Elements *New_Character(int label, int x, int y, int i, int j)
     pObj->inter_obj[pObj->inter_len++] = Snow_bullet_L;
     pObj->inter_obj[pObj->inter_len++] = Missile_bullet_L;
     pObj->inter_obj[pObj->inter_len++] = Wall_L;
+    pObj->inter_obj[pObj->inter_len++] = Heart_L;
 
     pDerivedObj->snow = false;
     pDerivedObj->missile = false;
@@ -371,6 +373,15 @@ void Character_interact(Elements *self, Elements *tar) {
         if (snow->hitbox->overlap(snow->hitbox, chara->hitbox))
         {
             chara->atk_mod = s;
+
+        }
+    }
+    if (tar->label == Heart_L)
+    {
+        Heart *heart = (Heart *)(tar->pDerivedObj);
+        if (heart->hitbox->overlap(heart->hitbox, chara->hitbox))
+        {
+            chara->live ++;
 
         }
     }
