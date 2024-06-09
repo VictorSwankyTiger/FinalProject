@@ -54,7 +54,7 @@ Elements *New_Character(int label, int x, int y, int i, int j)
     pDerivedObj->x = x;
     pDerivedObj->y = y;
     pDerivedObj->move_cnt = 0;
-    pDerivedObj->move_limit = 4;
+    pDerivedObj->move_limit = 6;
     pDerivedObj->bomb_limit = 1;
     pDerivedObj->bomb_cnt = 0;
     pDerivedObj->strong_limit = 60;
