@@ -31,8 +31,8 @@ Elements *New_Character(int label, int x, int y, int i, int j)
     //     sprintf(buffer, "assets/image/robot%s.gif", state_string[i]);
     //     pDerivedObj->gif_status[i] = algif_new_gif(buffer, -1);
     // }
-    char direction_string[4][10] = {"left", "right", "up", "down"};
-    for (int i = 0; i < 4; i++)
+    char direction_string[8][15] = {"left", "right", "up", "down", "leftflash", "rightflash", "upflash", "downflash"};
+    for (int i = 0; i < 8; i++)
     {
         char buffer[50];
         sprintf(buffer, "assets/image/pl1%s.gif", direction_string[i]);
@@ -311,7 +311,7 @@ void Character_draw(Elements *self)
 {
     // with the state, draw corresponding image
     Character *chara = ((Character *)(self->pDerivedObj));
-    ALLEGRO_BITMAP *frame = algif_get_bitmap(chara->gif_status[chara->direction], al_get_time());
+    ALLEGRO_BITMAP *frame = algif_get_bitmap(chara->gif_status[chara->direction + 4*(chara->strong_cnt!=chara->strong_limit)], al_get_time());
     if (frame)
     {
         al_draw_bitmap(frame, chara->x, chara->y, 0);
