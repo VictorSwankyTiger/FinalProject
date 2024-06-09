@@ -38,7 +38,7 @@ typedef struct _Character
     bool dir;                       // true: face to right, false: face to left
     int state;                      // the state of character
     int obj_state;                  // the state of recording what object character grab
-    ALGIF_ANIMATION *gif_status[4]; // gif for each state. 0: stop, 1: move, 2:attack
+    ALGIF_ANIMATION *gif_status[8]; // gif for each state. 0: stop, 1: move, 2:attack
     ALLEGRO_SAMPLE_INSTANCE *atk_Sound;
     
     int anime;      // counting the time of animation
