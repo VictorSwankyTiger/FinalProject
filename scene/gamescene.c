@@ -73,14 +73,6 @@ void game_scene_register_map(Scene *self)
 
                 MAP[i][j] = 1;
             }
-            if (gs->map_data[i][j] == 8)
-            {
-                Elements *house;
-                house = New_House(House_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID,i,j);
-                _Register_elements(self, house);
-
-                MAP[i][j] = 1;
-            }
             if (gs->map_data[i][j] == 2)
             {
                 Elements *chara;
@@ -130,7 +122,14 @@ void game_scene_register_map(Scene *self)
 
                 MAP[i][j] = 0;
             }
+            if (gs->map_data[i][j] == 8)
+            {
+                Elements *house;
+                house = New_House(House_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID,i,j);
+                _Register_elements(self, house);
 
+                MAP[i][j] = 2;
+            }
             
         }
     }
@@ -163,11 +162,6 @@ void game_scene_register_map(Scene *self)
                 Elements *heart;
                 heart = New_Heart(Heart_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
                 _Register_elements(self, heart);
-                Elements *house;
-                house = New_House(House_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID,i,j);
-                _Register_elements(self, house);
-
-                MAP[i][j] = 2;
             }
             
             
