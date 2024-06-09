@@ -392,8 +392,8 @@ void Character_interact(Elements *self, Elements *tar) {
     }
      if (tar->label == Buff_L)
     {
-        Buff *heart = (Buff *)(tar->pDerivedObj);
-        if (heart->hitbox->overlap(heart->hitbox, chara->hitbox))
+        Buff *buff = (Buff *)(tar->pDerivedObj);
+        if (buff->hitbox->overlap(buff->hitbox, chara->hitbox))
         {
             // chara->live ++;
             chara->power++;
@@ -401,8 +401,8 @@ void Character_interact(Elements *self, Elements *tar) {
     }
      if (tar->label == Stren_L)
     {
-        Strength *heart = (Strength *)(tar->pDerivedObj);
-        if (heart->hitbox->overlap(heart->hitbox, chara->hitbox))
+        Strength *stren = (Strength *)(tar->pDerivedObj);
+        if (stren->hitbox->overlap(stren->hitbox, chara->hitbox))
         {
             // chara->live ++;
             chara->bomb_limit++;

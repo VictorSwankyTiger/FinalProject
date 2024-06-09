@@ -10,7 +10,7 @@ Elements *New_Buff(int label, int x, int y)
     Buff *pDerivedObj = (Buff *)malloc(sizeof(Buff));
     Elements *pObj = New_Elements(label);
     // setting derived object member
-    pDerivedObj->img = al_load_bitmap("assets/image/Buff.png");
+    pDerivedObj->img = al_load_bitmap("assets/image/buff.png");
     pDerivedObj->width = al_get_bitmap_width(pDerivedObj->img);
     pDerivedObj->height = al_get_bitmap_height(pDerivedObj->img);
     pDerivedObj->x = x;
