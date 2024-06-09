@@ -114,7 +114,7 @@ void Character_update(Elements *self)
         {
             chara->dir = false;
             chara->direction = 0;
-            if(MAP[chara->i][chara->j-1] != 1){
+            if(MAP[chara->i][chara->j-1] == 0){
                 chara->state = MOVE;
                 chara->j--;
                 chara->move_cnt++;
@@ -125,7 +125,7 @@ void Character_update(Elements *self)
         {
             chara->dir = true;
             chara->direction = 1;
-            if(MAP[chara->i][chara->j+1] != 1){
+            if(MAP[chara->i][chara->j+1] == 0){
                 chara->state = MOVE;
                 chara->j++;
                 chara->move_cnt++;
@@ -136,7 +136,7 @@ void Character_update(Elements *self)
         {
             chara->dir = false;
             chara->direction = 2;
-            if(MAP[chara->i-1][chara->j] != 1){
+            if(MAP[chara->i-1][chara->j] == 0){
                 chara->state = MOVE;
                 chara->i--;
                 chara->move_cnt++;
@@ -148,7 +148,7 @@ void Character_update(Elements *self)
 
             chara->dir = true;
             chara->direction = 3;
-            if(MAP[chara->i+1][chara->j] != 1){
+            if(MAP[chara->i+1][chara->j] == 0){
                 chara->state = MOVE;
                 chara->i++;
                 chara->move_cnt++;
@@ -197,6 +197,7 @@ void Character_update(Elements *self)
     }
     else if (chara->state == ATK)
     {
+        al_play_sample_instance(chara->atk_Sound);
         if(chara->atk_mod == b){
             if (chara->gif_status[chara->direction]->done)
             {
@@ -256,22 +257,22 @@ void Character_update(Elements *self)
             {
                 Elements *fire;
                 if(chara->direction == 0){
-                    fire = New_Fire_bullet(Fire_bullet_L, chara->x-34, chara->y,chara->direction, self, 2);
+                    fire = New_Fire_bullet(Fire_bullet_L, chara->x-ONE_GRID, chara->y,chara->direction, self, 2);
                     chara->bomb_cnt++;
                     _Register_elements(scene, fire);
                 }
                 if(chara->direction == 1){
-                    fire = New_Fire_bullet(Fire_bullet_L, chara->x+34, chara->y,chara->direction, self, 2);
+                    fire = New_Fire_bullet(Fire_bullet_L, chara->x+ONE_GRID, chara->y,chara->direction, self, 2);
                     chara->bomb_cnt++;
                     _Register_elements(scene, fire);
                 }
                 if(chara->direction == 2){
-                    fire = New_Fire_bullet(Fire_bullet_L, chara->x, chara->y-58,chara->direction, self, 2);
+                    fire = New_Fire_bullet(Fire_bullet_L, chara->x, chara->y-ONE_GRID,chara->direction, self, 2);
                     chara->bomb_cnt++;
                     _Register_elements(scene, fire);
                 }
                 if(chara->direction == 3){
-                    fire = New_Fire_bullet(Fire_bullet_L, chara->x, chara->y+58,chara->direction, self, 2);
+                    fire = New_Fire_bullet(Fire_bullet_L, chara->x, chara->y+ONE_GRID,chara->direction, self, 2);
                     chara->bomb_cnt++;
                     _Register_elements(scene, fire);
                 }
@@ -313,13 +314,13 @@ void Character_draw(Elements *self)
     {
         al_draw_bitmap(frame, chara->x, chara->y, 0);
     }
-    if (chara->state == ATK && chara->gif_status[chara->direction]->display_index == 2)
+    if (chara->state == ATK)
     {
         al_play_sample_instance(chara->atk_Sound);
     }
     char c[1];
     c[0] = chara->live +'0';
-    al_draw_text(chara->font, al_map_rgb(0, 0, 0), 100, 230, ALLEGRO_ALIGN_CENTRE, c);
+    al_draw_text(chara->font, al_map_rgb(0, 0, 0), 90, 260, ALLEGRO_ALIGN_CENTRE, c);
 }
 void Character_destory(Elements *self)
 {

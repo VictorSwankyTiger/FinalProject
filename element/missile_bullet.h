@@ -16,6 +16,7 @@ typedef struct _Missile_bullet
     bool created;
     int length;
     Elements *player;
+    ALLEGRO_SAMPLE_INSTANCE *atk_Sound;
     ALLEGRO_BITMAP *img;
     ALLEGRO_BITMAP *img1;
     ALLEGRO_BITMAP *img2;
