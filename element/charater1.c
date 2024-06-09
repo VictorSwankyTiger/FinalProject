@@ -327,7 +327,7 @@ void Character1_draw(Elements *self)
     }
     char c[1];
     c[0] = chara->live +'0';
-    al_draw_text(chara->font, al_map_rgb(0, 0, 0), 90, 260, ALLEGRO_ALIGN_CENTRE, c);
+    al_draw_text(chara->font, al_map_rgb(0, 0, 0), 90, 678, ALLEGRO_ALIGN_CENTRE, c);
 }
 void Character1_destory(Elements *self)
 {

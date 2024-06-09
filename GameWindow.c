@@ -137,6 +137,9 @@ bool game_update(Game *self)
         case 3:
             create_scene(GameOver1_L);
             break;
+        case 10:
+            game_destroy(self);
+            break;
         case -1:
             return false;
         default:

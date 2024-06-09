@@ -10,7 +10,7 @@ Scene *New_Menu(int label)
     Scene *pObj = New_Scene(label);
     // setting derived object member
     pDerivedObj->font = al_load_ttf_font("assets/font/pirulen.ttf", 12, 0);
-    pDerivedObj->background = al_load_bitmap("assets/image/cover.png");
+    pDerivedObj->background = al_load_bitmap("assets/image/menu000.png");
     // Load sound
     pDerivedObj->song = al_load_sample("assets/sound/bgm.mp3");
     al_reserve_samples(20);
@@ -36,6 +36,12 @@ void menu_update(Scene *self)
     {
         self->scene_end = true;
         window = 1;
+    }
+    
+    if (key_state[ALLEGRO_KEY_Q])
+    {
+        self->scene_end = true;
+        window = 10;
     }
     return;
 }
