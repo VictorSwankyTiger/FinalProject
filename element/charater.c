@@ -52,10 +52,12 @@ Elements *New_Character(int label, int x, int y,int i,int j)
     pDerivedObj->y = y;
     pDerivedObj->move_cnt = 0;
     pDerivedObj->move_limit = 4;
-    pDerivedObj->bomb_limit = 1;
+    pDerivedObj->bomb_limit = 3;
     pDerivedObj->bomb_cnt = 0;
-    pDerivedObj->attack_cnt = 0;
-    pDerivedObj->attack_limit = 10;
+    pDerivedObj->strong_limit = 60;
+    pDerivedObj->strong_cnt = 60;
+    pDerivedObj->attack_cnt = 5;
+    pDerivedObj->attack_limit = 5;
     pDerivedObj->live = 5;
     pDerivedObj->direction = 0;
     pDerivedObj->atk_mod = b;
@@ -93,10 +95,12 @@ void Character_update(Elements *self)
 {
     // use the idea of finite state machine to deal with different state
     Character *chara = ((Character *)(self->pDerivedObj));
+    if(chara->strong_cnt != chara->strong_limit){
+        chara->strong_cnt++;
+    }
     if(chara->attack_cnt != chara->attack_limit){
         chara->attack_cnt++;
     }
-
     if (chara->state == STOP)
     {
         if (key_state[ALLEGRO_KEY_SPACE] && chara->attack_cnt == chara->attack_limit)
@@ -354,8 +358,11 @@ void Character_interact(Elements *self, Elements *tar) {
         Flame *flame = (Flame *)(tar->pDerivedObj);
         if (flame->hitbox->overlap(flame->hitbox, chara->hitbox))
         {
-            chara->live-=flame->damge;
-            flame->damge = 0;
+            if(chara->strong_cnt == chara->strong_limit){
+                chara->strong_cnt = 0;
+                chara->live-=flame->damge;
+            }
+            //flame->damge = 0;
         }
     }
     if (tar->label == Fire_L)
@@ -396,7 +403,10 @@ void Character_interact(Elements *self, Elements *tar) {
         Fire_bullet *fire = (Fire_bullet *)(tar->pDerivedObj);
         if (fire->hitbox->overlap(fire->hitbox, chara->hitbox) && fire->player != self)
         {
-            chara->live-= fire->damge;
+            if(chara->strong_cnt == chara->strong_limit){
+                chara->strong_cnt = 0;
+                chara->live--;
+            }
         }            
         fire->damge = 0;
 
@@ -406,7 +416,10 @@ void Character_interact(Elements *self, Elements *tar) {
         Missile_bullet *missile = (Missile_bullet *)(tar->pDerivedObj);
         if (missile->hitbox->overlap(missile->hitbox, chara->hitbox)&& missile->player != self)
         {
-            chara->live--;
+            if(chara->strong_cnt == chara->strong_limit){
+                chara->strong_cnt = 0;
+                chara->live--;
+            }
         }
     }
     
