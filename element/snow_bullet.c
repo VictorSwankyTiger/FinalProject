@@ -66,7 +66,7 @@ void Snow_bullet_update(Elements *self)
 
     if(Obj->time_cnt == 0){
         self->dele = true;
-        chara->bomb_cnt--;
+        if(chara->bomb_cnt!=0)chara->bomb_cnt--;
     }
     //_Snow_bullet_update_position(self, Obj->v, 0);
 }
