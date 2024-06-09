@@ -59,7 +59,10 @@ void Missile_bullet_update(Elements *self)
     _Missile_bullet_update_position(self, 0,  -Obj->v);
     if(Obj->direction == 3)
     _Missile_bullet_update_position(self, 0, +Obj->v);
-
+    if(Obj->time_cnt == 0||self->dele == true){
+        self->dele = true;
+        chara->bomb_cnt--;
+    }
 }
 void _Missile_bullet_update_position(Elements *self, int dx, int dy)
 {
