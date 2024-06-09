@@ -9,6 +9,7 @@
 typedef struct _Bomb
 {
     int x, y;          // the position of image
+    int i, j;
     int width, height; // the width and height of image
     int v;             // the velocity of projectile
     int cnt;
@@ -16,7 +17,7 @@ typedef struct _Bomb
     ALLEGRO_BITMAP *img;
     Shape *hitbox; // the hitbox of object
 } Bomb;
-Elements *New_Bomb(int label, int x, int y, Elements *player);
+Elements *New_Bomb(int label, int x, int y, Elements *player, int i, int j);
 void Bomb_update(Elements *self);
 void Bomb_interact(Elements *self, Elements *tar);
 void Bomb_draw(Elements *self);

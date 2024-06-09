@@ -4,6 +4,7 @@
 #include "missile_bullet.h"
 #include "fire_bullet.h"
 #include "flame.h"
+#include "../shapes/Rectangle.h"
 
 /*
    [House function]
@@ -18,9 +19,10 @@ Elements *New_House(int label, int x, int y)
     pDerivedObj->height = al_get_bitmap_height(pDerivedObj->img);
     pDerivedObj->x = x;
     pDerivedObj->y = y;
-    pDerivedObj->hitbox = New_Circle(pDerivedObj->x + pDerivedObj->width / 2,
-                                     pDerivedObj->y + pDerivedObj->height / 2,
-                                     min(pDerivedObj->width, pDerivedObj->height) / 2); 
+    pDerivedObj->hitbox = New_Rectangle(pDerivedObj->x,
+                                        pDerivedObj->y,
+                                        pDerivedObj->x + ONE_GRID/2,
+                                        pDerivedObj->y + ONE_GRID/2);
     // setting the interact object
     pObj->inter_obj[pObj->inter_len++] = Tree_L;
     pObj->inter_obj[pObj->inter_len++] = Floor_L;

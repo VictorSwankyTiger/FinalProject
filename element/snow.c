@@ -1,6 +1,7 @@
 #include "snow.h"
 #include "../scene/sceneManager.h"
 #include "../shapes/Circle.h"
+#include "../shapes/Rectangle.h"
 /*
    [Snow function]
 */
@@ -17,9 +18,10 @@ Elements *New_Snow(int label, int x, int y)
     pDerivedObj->player = NULL;
     //pDerivedObj->v = v;
     pDerivedObj->cnt = 60;
-    pDerivedObj->hitbox = New_Circle(pDerivedObj->x + pDerivedObj->width / 2,
-                                     pDerivedObj->y + pDerivedObj->height / 2,
-                                     min(pDerivedObj->width, pDerivedObj->height) / 2);
+    pDerivedObj->hitbox = New_Rectangle(pDerivedObj->x,
+                                        pDerivedObj->y,
+                                        pDerivedObj->x + ONE_GRID/2,
+                                        pDerivedObj->y + ONE_GRID/2);
     // setting the interact object
     pObj->inter_obj[pObj->inter_len++] = Tree_L;
     pObj->inter_obj[pObj->inter_len++] = Floor_L;

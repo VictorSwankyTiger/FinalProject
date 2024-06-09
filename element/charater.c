@@ -17,7 +17,7 @@
 /*
    [Character function]
 */
-Elements *New_Character(int label, int x, int y,int i,int j)
+Elements *New_Character(int label, int x, int y, int i, int j)
 {
     Character *pDerivedObj = (Character *)malloc(sizeof(Character));
     Elements *pObj = New_Elements(label);
@@ -52,18 +52,21 @@ Elements *New_Character(int label, int x, int y,int i,int j)
     pDerivedObj->y = y;
     pDerivedObj->move_cnt = 0;
     pDerivedObj->move_limit = 4;
-    pDerivedObj->bomb_limit = 1;
+    pDerivedObj->bomb_limit = 3;
     pDerivedObj->bomb_cnt = 0;
-    pDerivedObj->attack_cnt = 0;
-    pDerivedObj->attack_limit = 10;
+    pDerivedObj->strong_limit = 60;
+    pDerivedObj->strong_cnt = 60;
+    pDerivedObj->attack_cnt = 5;
+    pDerivedObj->attack_limit = 5;
     pDerivedObj->live = 5;
     pDerivedObj->direction = 0;
+    pDerivedObj->power = 5;
     pDerivedObj->atk_mod = b;
     pDerivedObj->font = al_load_ttf_font("assets/font/pirulen.ttf", 30, 0);
     pDerivedObj->hitbox = New_Rectangle(pDerivedObj->x,
                                         pDerivedObj->y,
-                                        pDerivedObj->x + pDerivedObj->width,
-                                        pDerivedObj->y + pDerivedObj->height);
+                                        pDerivedObj->x + ONE_GRID/2,
+                                        pDerivedObj->y + ONE_GRID/2);
     pDerivedObj->dir = false; // true: face to right, false: face to left
     // initial the animation component
     pDerivedObj->state = STOP;
@@ -93,10 +96,12 @@ void Character_update(Elements *self)
 {
     // use the idea of finite state machine to deal with different state
     Character *chara = ((Character *)(self->pDerivedObj));
+    if(chara->strong_cnt != chara->strong_limit){
+        chara->strong_cnt++;
+    }
     if(chara->attack_cnt != chara->attack_limit){
         chara->attack_cnt++;
     }
-
     if (chara->state == STOP)
     {
         if (key_state[ALLEGRO_KEY_SPACE] && chara->attack_cnt == chara->attack_limit)
@@ -107,40 +112,48 @@ void Character_update(Elements *self)
 
         else if (key_state[ALLEGRO_KEY_A])
         {
-            
             chara->dir = false;
             chara->direction = 0;
-            chara->state = MOVE;
-
-            chara->move_cnt++;
-            _Character_update_position(self, -ONE_GRID/chara->move_limit, 0);
+            if(MAP[chara->i][chara->j-1] != 1){
+                chara->state = MOVE;
+                chara->j--;
+                chara->move_cnt++;
+                _Character_update_position(self, -ONE_GRID/chara->move_limit, 0);
+            }
         }
         else if (key_state[ALLEGRO_KEY_D])
         {
             chara->dir = true;
             chara->direction = 1;
-            chara->state = MOVE;
-
-            chara->move_cnt++;
-            _Character_update_position(self, ONE_GRID/chara->move_limit, 0);
+            if(MAP[chara->i][chara->j+1] != 1){
+                chara->state = MOVE;
+                chara->j++;
+                chara->move_cnt++;
+                _Character_update_position(self, ONE_GRID/chara->move_limit, 0);
+            }
         }
         else if (key_state[ALLEGRO_KEY_W])
         {
             chara->dir = false;
             chara->direction = 2;
-            chara->state = MOVE;
-
-            chara->move_cnt++;
-            _Character_update_position(self, 0, -ONE_GRID/chara->move_limit);
+            if(MAP[chara->i-1][chara->j] != 1){
+                chara->state = MOVE;
+                chara->i--;
+                chara->move_cnt++;
+                _Character_update_position(self, 0, -ONE_GRID/chara->move_limit);
+            }
         }
         else if (key_state[ALLEGRO_KEY_S])
         {
+
             chara->dir = true;
             chara->direction = 3;
-            chara->state = MOVE;
-
-            chara->move_cnt++;
-            _Character_update_position(self, 0, ONE_GRID/chara->move_limit);
+            if(MAP[chara->i+1][chara->j] != 1){
+                chara->state = MOVE;
+                chara->i++;
+                chara->move_cnt++;
+                _Character_update_position(self, 0, ONE_GRID/chara->move_limit);
+            }
         }
 
         else
@@ -194,30 +207,10 @@ void Character_update(Elements *self)
             if (chara->gif_status[chara->direction]->display_index == 0 && (chara->bomb_cnt < chara->bomb_limit)) //chara->new_proj == false
             {
                 Elements *bomb;
-                bomb = New_Bomb(Bomb_L, chara->x, chara->y, self);
+                bomb = New_Bomb(Bomb_L, chara->x, chara->y, self, chara->i, chara->j);
                 chara->bomb_cnt++;
                 _Register_elements(scene, bomb);
                 chara->new_proj = true;
-
-                // Elements *pro;
-                // if (chara->dir)
-                // {
-                //     pro = New_Projectile(Projectile_L,
-                //                          chara->x + chara->width - 100,
-                //                          chara->y + 10,
-                //                          5);
-                // }
-                // else
-                // {
-                //     pro = New_Projectile(Projectile_L,
-                //                          chara->x - 50,
-                //                          chara->y + 10,
-                //                          -5);
-                // }
-                // _Register_elements(scene, pro);
-                // chara->new_proj = true;
-                chara->state = STOP;
-
             }
         }
         if(chara->atk_mod == s){
@@ -357,8 +350,11 @@ void Character_interact(Elements *self, Elements *tar) {
         Flame *flame = (Flame *)(tar->pDerivedObj);
         if (flame->hitbox->overlap(flame->hitbox, chara->hitbox))
         {
-            chara->live-=flame->damge;
-            flame->damge = 0;
+            if(chara->strong_cnt == chara->strong_limit){
+                chara->strong_cnt = 0;
+                chara->live-=flame->damge;
+            }
+            //flame->damge = 0;
         }
     }
     if (tar->label == Fire_L)
@@ -399,7 +395,10 @@ void Character_interact(Elements *self, Elements *tar) {
         Fire_bullet *fire = (Fire_bullet *)(tar->pDerivedObj);
         if (fire->hitbox->overlap(fire->hitbox, chara->hitbox) && fire->player != self)
         {
-            chara->live-= fire->damge;
+            if(chara->strong_cnt == chara->strong_limit){
+                chara->strong_cnt = 0;
+                chara->live--;
+            }
         }            
         fire->damge = 0;
 
@@ -409,7 +408,10 @@ void Character_interact(Elements *self, Elements *tar) {
         Missile_bullet *missile = (Missile_bullet *)(tar->pDerivedObj);
         if (missile->hitbox->overlap(missile->hitbox, chara->hitbox)&& missile->player != self)
         {
-            chara->live--;
+            if(chara->strong_cnt == chara->strong_limit){
+                chara->strong_cnt = 0;
+                chara->live--;
+            }
         }
     }
     

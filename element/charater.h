@@ -31,8 +31,10 @@ typedef struct _Character
     int time_cnt;                   // pause second can't move
     int bomb_cnt, bomb_limit;
     int attack_cnt, attack_limit;
+    int strong_cnt, strong_limit;
     int direction;
     int live;
+    int power;
     bool dir;                       // true: face to right, false: face to left
     int state;                      // the state of character
     int obj_state;                  // the state of recording what object character grab

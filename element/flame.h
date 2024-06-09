@@ -9,6 +9,7 @@
 typedef struct _Flame
 {
     int x, y;          // the position of image
+    int i, j;
     int width, height; // the width and height of image
     // int v;             // the velocity of flame
     int direction;
@@ -19,7 +20,7 @@ typedef struct _Flame
     ALLEGRO_BITMAP *img;
     Shape *hitbox; // the hitbox of object
 } Flame;
-Elements *New_Flame(int label, int x, int y, int direction, int length);
+Elements *New_Flame(int label, int x, int y, int direction, int length, int i, int j);
 void Flame_update(Elements *self);
 void Flame_interact(Elements *self, Elements *tar);
 void Flame_draw(Elements *self);

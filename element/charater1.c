@@ -164,11 +164,11 @@ void Character1_update(Elements *self)
             }
             if (chara->gif_status[ATK]->display_index == 0 && (chara->bomb_cnt < chara->bomb_limit)) //chara->new_proj == false
             {
-                Elements *bomb;
-                bomb = New_Bomb(Bomb_L, chara->x, chara->y, self);
-                chara->bomb_cnt++;
-                _Register_elements(scene, bomb);
-                chara->new_proj = true;
+                // Elements *bomb;
+                // bomb = New_Bomb(Bomb_L, chara->x, chara->y, self);
+                // chara->bomb_cnt++;
+                // _Register_elements(scene, bomb);
+                // chara->new_proj = true;
             }
         }
         if(chara->atk_mod == s){
