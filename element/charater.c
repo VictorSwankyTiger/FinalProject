@@ -17,7 +17,7 @@
 /*
    [Character function]
 */
-Elements *New_Character(int label, int x, int y,int i,int j)
+Elements *New_Character(int label, int x, int y, int i, int j)
 {
     Character *pDerivedObj = (Character *)malloc(sizeof(Character));
     Elements *pObj = New_Elements(label);
@@ -111,40 +111,48 @@ void Character_update(Elements *self)
 
         else if (key_state[ALLEGRO_KEY_A])
         {
-            
             chara->dir = false;
             chara->direction = 0;
-            chara->state = MOVE;
-
-            chara->move_cnt++;
-            _Character_update_position(self, -ONE_GRID/chara->move_limit, 0);
+            if(MAP[chara->i][chara->j-1] != 1){
+                chara->state = MOVE;
+                chara->j--;
+                chara->move_cnt++;
+                _Character_update_position(self, -ONE_GRID/chara->move_limit, 0);
+            }
         }
         else if (key_state[ALLEGRO_KEY_D])
         {
             chara->dir = true;
             chara->direction = 1;
-            chara->state = MOVE;
-
-            chara->move_cnt++;
-            _Character_update_position(self, ONE_GRID/chara->move_limit, 0);
+            if(MAP[chara->i][chara->j+1] != 1){
+                chara->state = MOVE;
+                chara->j++;
+                chara->move_cnt++;
+                _Character_update_position(self, ONE_GRID/chara->move_limit, 0);
+            }
         }
         else if (key_state[ALLEGRO_KEY_W])
         {
             chara->dir = false;
             chara->direction = 2;
-            chara->state = MOVE;
-
-            chara->move_cnt++;
-            _Character_update_position(self, 0, -ONE_GRID/chara->move_limit);
+            if(MAP[chara->i-1][chara->j] != 1){
+                chara->state = MOVE;
+                chara->i--;
+                chara->move_cnt++;
+                _Character_update_position(self, 0, -ONE_GRID/chara->move_limit);
+            }
         }
         else if (key_state[ALLEGRO_KEY_S])
         {
+
             chara->dir = true;
             chara->direction = 3;
-            chara->state = MOVE;
-
-            chara->move_cnt++;
-            _Character_update_position(self, 0, ONE_GRID/chara->move_limit);
+            if(MAP[chara->i+1][chara->j] != 1){
+                chara->state = MOVE;
+                chara->i++;
+                chara->move_cnt++;
+                _Character_update_position(self, 0, ONE_GRID/chara->move_limit);
+            }
         }
 
         else
