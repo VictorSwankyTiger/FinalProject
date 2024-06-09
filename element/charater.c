@@ -60,6 +60,7 @@ Elements *New_Character(int label, int x, int y, int i, int j)
     pDerivedObj->attack_limit = 5;
     pDerivedObj->live = 5;
     pDerivedObj->direction = 0;
+    pDerivedObj->power = 5;
     pDerivedObj->atk_mod = b;
     pDerivedObj->font = al_load_ttf_font("assets/font/pirulen.ttf", 30, 0);
     pDerivedObj->hitbox = New_Rectangle(pDerivedObj->x,
@@ -205,28 +206,10 @@ void Character_update(Elements *self)
             if (chara->gif_status[chara->direction]->display_index == 0 && (chara->bomb_cnt < chara->bomb_limit)) //chara->new_proj == false
             {
                 Elements *bomb;
-                bomb = New_Bomb(Bomb_L, chara->x, chara->y, self);
+                bomb = New_Bomb(Bomb_L, chara->x, chara->y, self, chara->i, chara->j);
                 chara->bomb_cnt++;
                 _Register_elements(scene, bomb);
                 chara->new_proj = true;
-
-                // Elements *pro;
-                // if (chara->dir)
-                // {
-                //     pro = New_Projectile(Projectile_L,
-                //                          chara->x + chara->width - 100,
-                //                          chara->y + 10,
-                //                          5);
-                // }
-                // else
-                // {
-                //     pro = New_Projectile(Projectile_L,
-                //                          chara->x - 50,
-                //                          chara->y + 10,
-                //                          -5);
-                // }
-                // _Register_elements(scene, pro);
-                // chara->new_proj = true;
             }
         }
         if(chara->atk_mod == s){

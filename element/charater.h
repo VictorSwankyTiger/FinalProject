@@ -34,6 +34,7 @@ typedef struct _Character
     int strong_cnt, strong_limit;
     int direction;
     int live;
+    int power;
     bool dir;                       // true: face to right, false: face to left
     int state;                      // the state of character
     int obj_state;                  // the state of recording what object character grab
