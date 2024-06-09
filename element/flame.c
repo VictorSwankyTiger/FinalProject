@@ -5,7 +5,7 @@
 /*
    [Flame function]
 */
-Elements *New_Flame(int label, int x, int y, int direction, int length, int i, int j)
+Elements *New_Flame(int label, int x, int y, int direction, int length, int i, int j, int sync)
 {
     Flame *pDerivedObj = (Flame *)malloc(sizeof(Flame));
     Elements *pObj = New_Elements(label);
@@ -17,8 +17,9 @@ Elements *New_Flame(int label, int x, int y, int direction, int length, int i, i
     pDerivedObj->y = y;
     pDerivedObj->i = i;
     pDerivedObj->j = j;
+    pDerivedObj->sync = sync;
     pDerivedObj->damge = 1;
-    pDerivedObj->time_cnt = 5;
+    pDerivedObj->time_cnt = 20 - sync;
     pDerivedObj->created = 0;
     pDerivedObj->direction = direction;
     pDerivedObj->length = length;
@@ -47,43 +48,43 @@ void Flame_update(Elements *self)
         Elements *flame;
         if(Obj->direction == 0){
             if(MAP[Obj->i][Obj->j-1] != 1){
-                flame = New_Flame(Flame_L, Obj->x - ONE_GRID, Obj->y, Obj->direction, Obj->length-1, Obj->i, Obj->j-1);
+                flame = New_Flame(Flame_L, Obj->x - ONE_GRID, Obj->y, Obj->direction, Obj->length-1, Obj->i, Obj->j-1, Obj->sync+1);
                 _Register_elements(scene, flame);
             }
         }
         if(Obj->direction == 1){
             if(MAP[Obj->i][Obj->j+1] != 1){
-                flame = New_Flame(Flame_L, Obj->x + ONE_GRID, Obj->y, Obj->direction, Obj->length-1, Obj->i, Obj->j+1);
+                flame = New_Flame(Flame_L, Obj->x + ONE_GRID, Obj->y, Obj->direction, Obj->length-1, Obj->i, Obj->j+1, Obj->sync+1);
                 _Register_elements(scene, flame);
             }
         }
         if(Obj->direction == 2){
             if(MAP[Obj->i-1][Obj->j] != 1){
-                flame = New_Flame(Flame_L, Obj->x, Obj->y - ONE_GRID, Obj->direction, Obj->length-1, Obj->i-1, Obj->j);
+                flame = New_Flame(Flame_L, Obj->x, Obj->y - ONE_GRID, Obj->direction, Obj->length-1, Obj->i-1, Obj->j, Obj->sync+1);
                 _Register_elements(scene, flame);
             }
         }
         if(Obj->direction == 3){
             if(MAP[Obj->i+1][Obj->j] != 1){
-                flame = New_Flame(Flame_L, Obj->x, Obj->y + ONE_GRID, Obj->direction, Obj->length-1, Obj->i+1, Obj->j);
+                flame = New_Flame(Flame_L, Obj->x, Obj->y + ONE_GRID, Obj->direction, Obj->length-1, Obj->i+1, Obj->j, Obj->sync+1);
                 _Register_elements(scene, flame);
             }
         }
         if(Obj->direction == 4){
             if(MAP[Obj->i][Obj->j-1] != 1){
-                flame = New_Flame(Flame_L, Obj->x - ONE_GRID, Obj->y, 0, Obj->length-1, Obj->i, Obj->j-1);
+                flame = New_Flame(Flame_L, Obj->x - ONE_GRID, Obj->y, 0, Obj->length-1, Obj->i, Obj->j-1, Obj->sync+1);
                 _Register_elements(scene, flame);
             }
             if(MAP[Obj->i][Obj->j+1] != 1){
-                flame = New_Flame(Flame_L, Obj->x + ONE_GRID, Obj->y, 1, Obj->length-1, Obj->i, Obj->j+1);
+                flame = New_Flame(Flame_L, Obj->x + ONE_GRID, Obj->y, 1, Obj->length-1, Obj->i, Obj->j+1, Obj->sync+1);
                 _Register_elements(scene, flame);
             }
             if(MAP[Obj->i-1][Obj->j] != 1){
-                flame = New_Flame(Flame_L, Obj->x, Obj->y - ONE_GRID, 2, Obj->length-1, Obj->i-1, Obj->j);
+                flame = New_Flame(Flame_L, Obj->x, Obj->y - ONE_GRID, 2, Obj->length-1, Obj->i-1, Obj->j, Obj->sync+1);
                 _Register_elements(scene, flame);
             }
             if(MAP[Obj->i+1][Obj->j] != 1){
-                flame = New_Flame(Flame_L, Obj->x, Obj->y + ONE_GRID, 3, Obj->length-1, Obj->i+1, Obj->j);
+                flame = New_Flame(Flame_L, Obj->x, Obj->y + ONE_GRID, 3, Obj->length-1, Obj->i+1, Obj->j, Obj->sync+1);
                 _Register_elements(scene, flame);
             }
         }
