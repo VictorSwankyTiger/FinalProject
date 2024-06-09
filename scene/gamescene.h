@@ -11,6 +11,8 @@
 #include "../element/projectile.h"
 #include "../element/fire.h"
 #include "../element/heart.h"
+#include "../element/buff.h"
+#include "../element/strength.h"
 #include "../element/house.h"
 #include "../element/missile.h"
 #include "../element/snow.h"
@@ -36,6 +38,8 @@ typedef enum EleType
     Snow_L,
     Missile_L,
     Heart_L,
+    Buff_L,
+    Stren_L,
     Missile_bullet_L,
     Character_L,
     Character2_L,

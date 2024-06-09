@@ -4,6 +4,8 @@
 #include "bomb.h"
 #include "snow.h"
 #include "heart.h"
+#include "buff.h"
+#include "strength.h"
 #include "snow_bullet.h"
 #include "missile.h"
 #include "missile_bullet.h"
@@ -83,6 +85,9 @@ Elements *New_Character(int label, int x, int y, int i, int j)
     pObj->inter_obj[pObj->inter_len++] = Missile_bullet_L;
     pObj->inter_obj[pObj->inter_len++] = Wall_L;
     pObj->inter_obj[pObj->inter_len++] = Heart_L;
+    pObj->inter_obj[pObj->inter_len++] = Buff_L;
+    pObj->inter_obj[pObj->inter_len++] = Stren_L;
+
 
     pDerivedObj->snow = false;
     pDerivedObj->missile = false;
@@ -383,6 +388,24 @@ void Character_interact(Elements *self, Elements *tar) {
         {
             chara->live ++;
 
+        }
+    }
+     if (tar->label == Buff_L)
+    {
+        Buff *heart = (Buff *)(tar->pDerivedObj);
+        if (heart->hitbox->overlap(heart->hitbox, chara->hitbox))
+        {
+            // chara->live ++;
+            chara->power++;
+        }
+    }
+     if (tar->label == Stren_L)
+    {
+        Strength *heart = (Strength *)(tar->pDerivedObj);
+        if (heart->hitbox->overlap(heart->hitbox, chara->hitbox))
+        {
+            // chara->live ++;
+            chara->bomb_limit++;
         }
     }
     if (tar->label == Missile_L)

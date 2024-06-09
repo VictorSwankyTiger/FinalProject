@@ -163,7 +163,18 @@ void game_scene_register_map(Scene *self)
                 heart = New_Heart(Heart_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
                 _Register_elements(self, heart);
             }
-            
+            if (gs->item_map[i][j] == 9)
+            {
+                Elements *heart;
+                heart = New_Buff(Heart_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
+                _Register_elements(self, heart);
+            }
+            if (gs->item_map[i][j] == 10)
+            {
+                Elements *heart;
+                heart = New_Strength(Heart_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
+                _Register_elements(self, heart);
+            }
             
         }
     }
