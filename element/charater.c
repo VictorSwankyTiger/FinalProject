@@ -421,7 +421,7 @@ void Character_interact(Elements *self, Elements *tar) {
         Snow_bullet *freeze = (Snow_bullet *)(tar->pDerivedObj);
         if (freeze->hitbox->overlap(freeze->hitbox, chara->hitbox) && freeze->player != self)
         {
-            chara->live--;
+            // chara->state = STOP;
         }
     }
     if (tar->label == Fire_bullet_L)
