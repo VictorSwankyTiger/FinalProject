@@ -311,7 +311,7 @@ void Character_draw(Elements *self)
 {
     // with the state, draw corresponding image
     Character *chara = ((Character *)(self->pDerivedObj));
-    ALLEGRO_BITMAP *frame = algif_get_bitmap(chara->gif_status[chara->direction + 4*(chara->strong_cnt!=chara->strong_limit)], al_get_time());
+    ALLEGRO_BITMAP *frame = algif_get_bitmap(chara->gif_status[chara->direction + 4*(chara->strong_cnt != chara->strong_limit)], al_get_time());
     if (frame)
     {
         al_draw_bitmap(frame, chara->x, chara->y, 0);
