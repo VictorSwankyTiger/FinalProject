@@ -46,7 +46,6 @@ void Bomb_update(Elements *self)
         Elements *flame;
         flame = New_Flame(Flame_L, Obj->x, Obj->y, 4, chara->power, Obj->i, Obj->j, 0);
         _Register_elements(scene, flame);
-        
         chara->bomb_cnt--;
         self->dele = true;
     }
