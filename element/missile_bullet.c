@@ -42,6 +42,7 @@ Elements *New_Missile_bullet(int label, int x, int y, int direction, Elements* p
     pObj->Interact = Missile_bullet_interact;
     pObj->Draw = Missile_bullet_draw;
     pObj->Destroy = Missile_bullet_destory;
+        al_play_sample_instance(pDerivedObj->atk_Sound);
 
     return pObj;
 }
@@ -107,7 +108,6 @@ void Missile_bullet_interact(Elements *self, Elements *tar)
 void Missile_bullet_draw(Elements *self)
 {
     Missile_bullet *Obj = ((Missile_bullet *)(self->pDerivedObj));
-    al_play_sample_instance(Obj->atk_Sound);
     if(Obj->direction == 0)
     al_draw_bitmap(Obj->img3, Obj->x-ONE_GRID, Obj->y+ONE_GRID, 0);
     if(Obj->direction == 1)
