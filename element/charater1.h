@@ -33,6 +33,7 @@ typedef struct _Character1
     int bomb_cnt, bomb_limit;
     int attack_cnt, attack_limit;
     int strong_cnt, strong_limit;
+    int stop_cnt, stop_limit;
     int direction;
     int live;
     int power;

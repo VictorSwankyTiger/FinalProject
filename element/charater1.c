@@ -61,6 +61,8 @@ Elements *New_Character1(int label, int x, int y, int i, int j)
     pDerivedObj->strong_cnt = 60;
     pDerivedObj->attack_cnt = 10;
     pDerivedObj->attack_limit = 10;
+    pDerivedObj->stop_limit = 60;
+    pDerivedObj->stop_cnt = 60; 
     pDerivedObj->live = 5;
     pDerivedObj->direction = 0;
     pDerivedObj->power = 1;
@@ -109,6 +111,9 @@ void Character1_update(Elements *self)
     if(chara->attack_cnt != chara->attack_limit){
         chara->attack_cnt++;
     }
+    if(chara->stop_cnt != chara->stop_limit){
+        chara->stop_cnt++;
+    }
     if (chara->state == STOP)
     {
         if (key_state[ALLEGRO_KEY_RCTRL] && chara->attack_cnt == chara->attack_limit)
@@ -117,7 +122,7 @@ void Character1_update(Elements *self)
             chara->attack_cnt = 0;
         }
 
-        else if (key_state[ALLEGRO_KEY_LEFT])
+        else if (key_state[ALLEGRO_KEY_LEFT] && chara->stop_cnt == chara->stop_limit)
         {
             chara->dir = false;
             chara->direction = 0;
@@ -128,7 +133,7 @@ void Character1_update(Elements *self)
                 _Character1_update_position(self, -ONE_GRID/chara->move_limit, 0);
             }
         }
-        else if (key_state[ALLEGRO_KEY_RIGHT])
+        else if (key_state[ALLEGRO_KEY_RIGHT] && chara->stop_cnt == chara->stop_limit)
         {
             chara->dir = true;
             chara->direction = 1;
@@ -139,7 +144,7 @@ void Character1_update(Elements *self)
                 _Character1_update_position(self, ONE_GRID/chara->move_limit, 0);
             }
         }
-        else if (key_state[ALLEGRO_KEY_UP])
+        else if (key_state[ALLEGRO_KEY_UP] && chara->stop_cnt == chara->stop_limit)
         {
             chara->dir = false;
             chara->direction = 2;
@@ -150,7 +155,7 @@ void Character1_update(Elements *self)
                 _Character1_update_position(self, 0, -ONE_GRID/chara->move_limit);
             }
         }
-        else if (key_state[ALLEGRO_KEY_DOWN])
+        else if (key_state[ALLEGRO_KEY_DOWN] && chara->stop_cnt == chara->stop_limit)
         {
 
             chara->dir = true;
@@ -421,7 +426,9 @@ void Character1_interact(Elements *self, Elements *tar) {
         Snow_bullet *freeze = (Snow_bullet *)(tar->pDerivedObj);
         if (freeze->hitbox->overlap(freeze->hitbox, chara->hitbox) && freeze->player != self)
         {
-            // chara->state = STOP;
+            if(chara->stop_cnt == chara->stop_limit){
+                chara->stop_cnt = 0;
+            }
         }
     }
     if (tar->label == Fire_bullet_L)
