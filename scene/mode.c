@@ -9,7 +9,7 @@ Scene *New_Mode(int label)
     Mode *pDerivedObj = (Mode *)malloc(sizeof(Mode));
     Scene *pObj = New_Scene(label);
     // setting derived object member
-    pDerivedObj->background = al_load_bitmap("assets/image/control.png");
+    pDerivedObj->background = al_load_bitmap("assets/image/V.png");
     pDerivedObj->font = al_load_ttf_font("assets/font/pirulen.ttf", 20, 0);
     // Load sound
     pDerivedObj->song = al_load_sample("assets/sound/bgm.mp3");
@@ -56,7 +56,14 @@ void Mode_draw(Scene *self)
     Mode *Obj = ((Mode *)(self->pDerivedObj));
     al_clear_to_color(al_map_rgb(0, 0, 0));
     Mode *gs = ((Mode *)(self->pDerivedObj));
+    //654
     al_draw_bitmap(gs->background, 0, 0, 0);
+    al_draw_text(Obj->font, al_map_rgb(255, 255, 255), Obj->title_x, Obj->title_y, ALLEGRO_ALIGN_CENTRE, "Press \"B\" to escape");
+    al_draw_rectangle(Obj->title_x - 150, Obj->title_y - 30, Obj->title_x + 150, Obj->title_y + 30, al_map_rgb(255, 255, 255), 0);
+    ALLEGRO_BITMAP *logout = al_load_bitmap("assets/image/B.png");
+     al_draw_text(Obj->font, al_map_rgb(255, 255, 255), Obj->title_x, Obj->title_y, ALLEGRO_ALIGN_CENTRE, "Press \"V\" to escape");
+    al_draw_rectangle(Obj->title_x - 150, Obj->title_y - 30, Obj->title_x + 150, Obj->title_y + 30, al_map_rgb(255, 255, 255), 0);
+    al_draw_bitmap(logout, 588, 0, 0);
     al_draw_text(gs->font, al_map_rgb(0, 0, 0),  Obj->title_x,  Obj->title_y, ALLEGRO_ALIGN_CENTRE, "Press Esc to leave");
     // ALLEGRO_BITMAP *logout = al_load_bitmap("assets/image/logout.png");
     // al_draw_bitmap(logout, 5, 780, 0);
