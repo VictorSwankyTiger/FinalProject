@@ -10,6 +10,7 @@ typedef enum SceneType
     GameOver1_L,
     Thank_L,
     Explain_L,
+    Mode_L,
 } SceneType;
 void create_scene(SceneType);
 

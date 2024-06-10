@@ -53,6 +53,11 @@ void menu_update(Scene *self)
         self->scene_end = true;
         window = 4;
     }
+    if (key_state[ALLEGRO_KEY_M])
+    {
+        self->scene_end = true;
+        window = 6;
+    }
     return;
 }
 void menu_draw(Scene *self)
@@ -61,8 +66,10 @@ void menu_draw(Scene *self)
     al_clear_to_color(al_map_rgb(0, 0, 0));
     Menu *gs = ((Menu *)(self->pDerivedObj));
     al_draw_bitmap(gs->background, 0, 0, 0);
-    //al_draw_text(Obj->font, al_map_rgb(255, 255, 255), Obj->title_x, Obj->title_y, ALLEGRO_ALIGN_CENTRE, "Press 'Enter' to start");
-    //al_draw_rectangle(Obj->title_x - 150, Obj->title_y - 30, Obj->title_x + 150, Obj->title_y + 30, al_map_rgb(255, 255, 255), 0);
+    // al_draw_text(Obj->font, al_map_rgb(255, 255, 255), Obj->title_x+500, Obj->title_y+500, ALLEGRO_ALIGN_CENTRE, "Press 'Enter' to start");
+    // al_draw_rectangle(Obj->title_x - 150, Obj->title_y - 30, Obj->title_x + 150, Obj->title_y + 30, al_map_rgb(255, 255, 255), 0);
+    ALLEGRO_BITMAP *mode =al_load_bitmap("assets/image/mode.png");
+    al_draw_bitmap(mode, 700, 700, 0);
     al_play_sample_instance(Obj->sample_instance);
 }
 void menu_destroy(Scene *self)

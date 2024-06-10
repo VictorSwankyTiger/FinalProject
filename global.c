@@ -10,6 +10,7 @@ const int BOARD_H = 840;
 const int ONE_GRID = 60;
 int MAP[14][15];
 int window = 0;
+int map_mode = 0;
 ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 ALLEGRO_EVENT event;
 ALLEGRO_TIMER *fps = NULL;

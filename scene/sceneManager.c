@@ -5,6 +5,7 @@
 #include "gameover.h"
 #include "thank.h"
 #include "explain.h"
+#include "mode.h"
 
 Scene *scene = NULL;
 void create_scene(SceneType type)
@@ -28,6 +29,9 @@ void create_scene(SceneType type)
         break;
     case Explain_L:
         scene = New_Explain(Explain_L);
+        break;
+    case Mode_L:
+        scene = New_Mode(Mode_L);
         break;
     default:
         break;
