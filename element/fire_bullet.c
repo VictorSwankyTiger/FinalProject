@@ -102,7 +102,8 @@ void Fire_bullet_interact(Elements *self, Elements *tar)
 void Fire_bullet_draw(Elements *self)
 {
     Fire_bullet *Obj = ((Fire_bullet *)(self->pDerivedObj));
-    al_draw_bitmap(Obj->img, Obj->x, Obj->y, 0);
+    if (Obj->x >= WIDTH - BOARD_W)
+        al_draw_bitmap(Obj->img, Obj->x, Obj->y, 0);
     // if (Obj->v > 0)
     //     al_draw_bitmap(Obj->img, Obj->x, Obj->y, ALLEGRO_FLIP_HORIZONTAL);
     // else
