@@ -12,7 +12,7 @@ Scene *New_Thank(int label)
     pDerivedObj->background = al_load_bitmap("assets/image/credit.png");
     pDerivedObj->font = al_load_ttf_font("assets/font/pirulen.ttf", 40, 0);
     // Load sound
-    pDerivedObj->song = al_load_sample("assets/sound/menu.mp3");
+    pDerivedObj->song = al_load_sample("assets/sound/bgm.mp3");
     al_reserve_samples(20);
     pDerivedObj->sample_instance = al_create_sample_instance(pDerivedObj->song);
     pDerivedObj->title_x = WIDTH / 2;

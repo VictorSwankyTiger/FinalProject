@@ -9,10 +9,10 @@ Scene *New_Gameover1(int label)
     Gameover1 *pDerivedObj = (Gameover1 *)malloc(sizeof(Gameover1));
     Scene *pObj = New_Scene(label);
     // setting derived object member
-    pDerivedObj->background = al_load_bitmap("assets/image/pl2win.png");
+    pDerivedObj->background = al_load_bitmap("assets/image/pl2win02.png");
     pDerivedObj->font = al_load_ttf_font("assets/font/pirulen.ttf", 40, 0);
     // Load sound
-    pDerivedObj->song = al_load_sample("assets/sound/menu.mp3");
+    pDerivedObj->song = al_load_sample("assets/sound/bgm.mp3");
     al_reserve_samples(20);
     pDerivedObj->sample_instance = al_create_sample_instance(pDerivedObj->song);
     pDerivedObj->title_x = WIDTH / 2;
@@ -32,7 +32,7 @@ Scene *New_Gameover1(int label)
 }
 void gameover1_update(Scene *self)
 {
-    if (key_state[ALLEGRO_KEY_ESCAPE])
+    if (key_state[ALLEGRO_KEY_R])
     {
         self->scene_end = true;
         window = 0;
@@ -46,9 +46,7 @@ void gameover1_draw(Scene *self)
     al_clear_to_color(al_map_rgb(0, 0, 0));
     Gameover1 *gs = ((Gameover1 *)(self->pDerivedObj));
     al_draw_bitmap(gs->background, 0, 0, 0);
-    al_draw_text(gs->font, al_map_rgb(0, 0, 0), 800, 785, ALLEGRO_ALIGN_CENTRE, "Press Esc to leave");
-    ALLEGRO_BITMAP *logout = al_load_bitmap("assets/image/logout.png");
-    al_draw_bitmap(logout, 5, 780, 0);
+   
     //al_draw_text(Obj->font, al_map_rgb(255, 255, 255), Obj->title_x, Obj->title_y, ALLEGRO_ALIGN_CENTRE, "Press \"Esc\" to escape");
     //al_draw_rectangle(Obj->title_x - 150, Obj->title_y - 30, Obj->title_x + 150, Obj->title_y + 30, al_map_rgb(255, 255, 255), 0);
     al_play_sample_instance(Obj->sample_instance);
