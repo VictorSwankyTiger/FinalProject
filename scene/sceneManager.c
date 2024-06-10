@@ -3,6 +3,9 @@
 #include "gamescene.h"
 #include "gameover1.h"
 #include "gameover.h"
+#include "thank.h"
+#include "explain.h"
+
 Scene *scene = NULL;
 void create_scene(SceneType type)
 {
@@ -20,7 +23,12 @@ void create_scene(SceneType type)
     case GameOver1_L:
         scene = New_Gameover1(GameOver1_L);
         break;
-    
+    case Thank_L:
+        scene = New_Thank(Thank_L);
+        break;
+    case Explain_L:
+        scene = New_Explain(Explain_L);
+        break;
     default:
         break;
     }

@@ -1,15 +1,15 @@
 #include <allegro5/allegro_primitives.h>
-#include "gameover1.h"
+#include "explain.h"
 #include <stdbool.h>
 /*
-   [Gameover1 function]
+   [Explain function]
 */
-Scene *New_Gameover1(int label)
+Scene *New_Explain(int label)
 {
-    Gameover1 *pDerivedObj = (Gameover1 *)malloc(sizeof(Gameover1));
+    Explain *pDerivedObj = (Explain *)malloc(sizeof(Explain));
     Scene *pObj = New_Scene(label);
     // setting derived object member
-    pDerivedObj->background = al_load_bitmap("assets/image/pl2win.png");
+    pDerivedObj->background = al_load_bitmap("assets/image/control.png");
     pDerivedObj->font = al_load_ttf_font("assets/font/pirulen.ttf", 40, 0);
     // Load sound
     pDerivedObj->song = al_load_sample("assets/sound/menu.mp3");
@@ -25,12 +25,12 @@ Scene *New_Gameover1(int label)
     al_set_sample_instance_gain(pDerivedObj->sample_instance, 0.1);
     pObj->pDerivedObj = pDerivedObj;
     // setting derived object function
-    pObj->Update = gameover1_update;
-    pObj->Draw = gameover1_draw;
-    pObj->Destroy = gameover1_destroy;
+    pObj->Update = Explain_update;
+    pObj->Draw = Explain_draw;
+    pObj->Destroy = Explain_destroy;
     return pObj;
 }
-void gameover1_update(Scene *self)
+void Explain_update(Scene *self)
 {
     if (key_state[ALLEGRO_KEY_ESCAPE])
     {
@@ -40,11 +40,11 @@ void gameover1_update(Scene *self)
     
     return;
 }
-void gameover1_draw(Scene *self)
+void Explain_draw(Scene *self)
 {
-    Gameover1 *Obj = ((Gameover1 *)(self->pDerivedObj));
+    Explain *Obj = ((Explain *)(self->pDerivedObj));
     al_clear_to_color(al_map_rgb(0, 0, 0));
-    Gameover1 *gs = ((Gameover1 *)(self->pDerivedObj));
+    Explain *gs = ((Explain *)(self->pDerivedObj));
     al_draw_bitmap(gs->background, 0, 0, 0);
     al_draw_text(gs->font, al_map_rgb(0, 0, 0), 800, 785, ALLEGRO_ALIGN_CENTRE, "Press Esc to leave");
     ALLEGRO_BITMAP *logout = al_load_bitmap("assets/image/logout.png");
@@ -53,9 +53,9 @@ void gameover1_draw(Scene *self)
     //al_draw_rectangle(Obj->title_x - 150, Obj->title_y - 30, Obj->title_x + 150, Obj->title_y + 30, al_map_rgb(255, 255, 255), 0);
     al_play_sample_instance(Obj->sample_instance);
 }
-void gameover1_destroy(Scene *self)
+void Explain_destroy(Scene *self)
 {
-    Gameover1 *Obj = ((Gameover1 *)(self->pDerivedObj));
+    Explain *Obj = ((Explain *)(self->pDerivedObj));
     al_destroy_font(Obj->font);
     al_destroy_sample(Obj->song);
     al_destroy_sample_instance(Obj->sample_instance);

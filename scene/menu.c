@@ -43,6 +43,16 @@ void menu_update(Scene *self)
         self->scene_end = true;
         window = 10;
     }
+    if (key_state[ALLEGRO_KEY_V])
+    {
+        self->scene_end = true;
+        window = 5;
+    }
+    if (key_state[ALLEGRO_KEY_B])
+    {
+        self->scene_end = true;
+        window = 4;
+    }
     return;
 }
 void menu_draw(Scene *self)
