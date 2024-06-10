@@ -10,7 +10,7 @@ Scene *New_Gameover(int label)
     Scene *pObj = New_Scene(label);
     // setting derived object member
     pDerivedObj->background = al_load_bitmap("assets/image/pl1win.png");
-    pDerivedObj->font = al_load_ttf_font("assets/font/pirulen.ttf", 12, 0);
+    pDerivedObj->font = al_load_ttf_font("assets/font/pirulen.ttf", 40, 0);
     // Load sound
     pDerivedObj->song = al_load_sample("assets/sound/menu.mp3");
     al_reserve_samples(20);
@@ -46,7 +46,9 @@ void Gameover_draw(Scene *self)
     al_clear_to_color(al_map_rgb(0, 0, 0));
     Gameover *gs = ((Gameover *)(self->pDerivedObj));
     al_draw_bitmap(gs->background, 0, 0, 0);
-
+    al_draw_text(gs->font, al_map_rgb(0, 0, 0), 800, 785, ALLEGRO_ALIGN_CENTRE, "Press Esc to leave");
+    ALLEGRO_BITMAP *logout = al_load_bitmap("assets/image/logout.png");
+    al_draw_bitmap(logout, 5, 780, 0);
     //al_draw_text(Obj->font, al_map_rgb(255, 255, 255), Obj->title_x, Obj->title_y, ALLEGRO_ALIGN_CENTRE, "Press \"Esc\" to escape");
     //al_draw_rectangle(Obj->title_x - 150, Obj->title_y - 30, Obj->title_x + 150, Obj->title_y + 30, al_map_rgb(255, 255, 255), 0);
     al_play_sample_instance(Obj->sample_instance);

@@ -8,7 +8,7 @@ Scene *New_GameScene(int label)
     Scene *pObj = New_Scene(label);
     // setting derived object member
     pDerivedObj->background = al_load_bitmap("assets/image/stage07.png");
-    pDerivedObj->font = al_load_ttf_font("assets/font/pirulen.ttf", 30, 0);
+    pDerivedObj->font = al_load_ttf_font("assets/font/pirulen.ttf", 15, 0);
     pDerivedObj->x = 0;
     pDerivedObj->y = 0;
     pDerivedObj->map_x = WIDTH - BOARD_W;
@@ -237,7 +237,7 @@ void game_scene_update(Scene *self)
     if (key_state[ALLEGRO_KEY_P])
     {
         self->scene_end = true;
-        window = 2;
+        window = 0;
         return;
     }
 }
@@ -252,7 +252,9 @@ void game_scene_draw(Scene *self)
         Elements *ele = allEle.arr[i];
         ele->Draw(ele);
     }
-    
+    al_draw_text(gs->font, al_map_rgb(0, 0, 0), 100, 785, ALLEGRO_ALIGN_CENTRE, "Press P");
+    ALLEGRO_BITMAP *logout = al_load_bitmap("assets/image/logout.png");
+    al_draw_bitmap(logout, 5, 780, 0);
 }
 void game_scene_destroy(Scene *self)
 {

@@ -19,7 +19,7 @@ Elements *New_Flame(int label, int x, int y, int direction, int length, int i, i
     pDerivedObj->j = j;
     pDerivedObj->sync = sync;
     pDerivedObj->damge = 1;
-    pDerivedObj->time_cnt = 20 - sync;
+    pDerivedObj->time_cnt = 10 - sync;
     pDerivedObj->created = 0;
     pDerivedObj->direction = direction;
     pDerivedObj->length = length;

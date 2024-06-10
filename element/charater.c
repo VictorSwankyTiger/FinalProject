@@ -62,6 +62,7 @@ Elements *New_Character(int label, int x, int y, int i, int j)
     pDerivedObj->attack_cnt = 5;
     pDerivedObj->attack_limit = 5;
     pDerivedObj->live = 5;
+    pDerivedObj->time_cnt = 0;
     pDerivedObj->direction = 0;
     pDerivedObj->power = 1;
     pDerivedObj->atk_mod = b;
@@ -421,7 +422,7 @@ void Character_interact(Elements *self, Elements *tar) {
         Snow_bullet *freeze = (Snow_bullet *)(tar->pDerivedObj);
         if (freeze->hitbox->overlap(freeze->hitbox, chara->hitbox) && freeze->player != self)
         {
-            chara->live--;
+            // chara->state = STOP;
         }
     }
     if (tar->label == Fire_bullet_L)
