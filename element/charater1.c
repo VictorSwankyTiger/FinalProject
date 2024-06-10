@@ -59,8 +59,8 @@ Elements *New_Character1(int label, int x, int y, int i, int j)
     pDerivedObj->bomb_cnt = 0;
     pDerivedObj->strong_limit = 60;
     pDerivedObj->strong_cnt = 60;
-    pDerivedObj->attack_cnt = 5;
-    pDerivedObj->attack_limit = 5;
+    pDerivedObj->attack_cnt = 10;
+    pDerivedObj->attack_limit = 10;
     pDerivedObj->live = 5;
     pDerivedObj->direction = 0;
     pDerivedObj->power = 1;
