@@ -7,7 +7,7 @@ Scene *New_GameScene(int label)
     GameScene *pDerivedObj = (GameScene *)malloc(sizeof(GameScene));
     Scene *pObj = New_Scene(label);
     // setting derived object member
-    pDerivedObj->background = al_load_bitmap("assets/image/stage07.png");
+    pDerivedObj->background = al_load_bitmap("assets/image/stage10.png");
     pDerivedObj->font = al_load_ttf_font("assets/font/pirulen.ttf", 15, 0);
     pDerivedObj->x = 0;
     pDerivedObj->y = 0;
