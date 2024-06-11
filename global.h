@@ -9,7 +9,7 @@
     {                                                                       \
         printf("check at line number %d in file %s\n", __LINE__, __FILE__); \
     }
-#define MAX_ELEMENT 300
+#define MAX_ELEMENT 1000
 #define min(x, y) ((x) > (y) ? (y) : (x))
 #define max(x, y) ((x) < (y) ? (y) : (x))
 // note that you can't assign initial value for extern variable!
@@ -21,6 +21,7 @@ extern const int BOARD_H;
 extern const int ONE_GRID;
 extern int MAP[14][15];
 extern int window;
+extern int map_mode;
 extern bool key_state[ALLEGRO_KEY_MAX];
 extern bool mouse_state[ALLEGRO_MOUSE_MAX_EXTRA_AXES];
 extern Point mouse;

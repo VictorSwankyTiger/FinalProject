@@ -42,7 +42,8 @@ typedef struct _Character1
     int obj_state;                  // the state of recording what object Character1 grab
     ALGIF_ANIMATION *gif_status[8]; // gif for each state. 0: stop, 1: move, 2:attack
     ALLEGRO_SAMPLE_INSTANCE *atk_Sound;
-    
+    ALLEGRO_SAMPLE_INSTANCE *get_Sound;
+
     int anime;      // counting the time of animation
     int anime_time; // indicate how long the animation
     bool new_proj;

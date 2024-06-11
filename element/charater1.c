@@ -41,11 +41,14 @@ Elements *New_Character1(int label, int x, int y, int i, int j)
         pDerivedObj->gif_status[i] = algif_new_gif(buffer, -1);
     }
     // load effective sound
-    ALLEGRO_SAMPLE *sample = al_load_sample("assets/sound/atk_sound.wav");
+     ALLEGRO_SAMPLE *sample = al_load_sample("assets/sound/atk_sound.wav");
     pDerivedObj->atk_Sound = al_create_sample_instance(sample);
+    ALLEGRO_SAMPLE *sample_ = al_load_sample("assets/sound/get.mp3");
+    pDerivedObj->get_Sound = al_create_sample_instance(sample_);
     al_set_sample_instance_playmode(pDerivedObj->atk_Sound, ALLEGRO_PLAYMODE_ONCE);
     al_attach_sample_instance_to_mixer(pDerivedObj->atk_Sound, al_get_default_mixer());
-
+    al_set_sample_instance_playmode(pDerivedObj->get_Sound, ALLEGRO_PLAYMODE_ONCE);
+    al_attach_sample_instance_to_mixer(pDerivedObj->get_Sound, al_get_default_mixer());
     // initial the geometric information of Character1
     pDerivedObj->width = pDerivedObj->gif_status[0]->width;
     pDerivedObj->height = pDerivedObj->gif_status[0]->height;
@@ -373,7 +376,7 @@ void Character1_interact(Elements *self, Elements *tar) {
     {
         Fire *fire = (Fire *)(tar->pDerivedObj);
         if (fire->hitbox->overlap(fire->hitbox, chara->hitbox))
-        {
+        {al_play_sample_instance(chara->get_Sound);
             chara->atk_mod = f;
         }
     }
@@ -381,7 +384,7 @@ void Character1_interact(Elements *self, Elements *tar) {
     {
         Snow *snow = (Snow *)(tar->pDerivedObj);
         if (snow->hitbox->overlap(snow->hitbox, chara->hitbox))
-        {
+        {al_play_sample_instance(chara->get_Sound);
             chara->atk_mod = s;
 
         }
@@ -390,7 +393,7 @@ void Character1_interact(Elements *self, Elements *tar) {
     {
         Heart *heart = (Heart *)(tar->pDerivedObj);
         if (heart->hitbox->overlap(heart->hitbox, chara->hitbox))
-        {
+        {al_play_sample_instance(chara->get_Sound);
             chara->live ++;
 
         }
@@ -399,7 +402,7 @@ void Character1_interact(Elements *self, Elements *tar) {
     {
         Buff *buff = (Buff *)(tar->pDerivedObj);
         if (buff->hitbox->overlap(buff->hitbox, chara->hitbox))
-        {
+        {al_play_sample_instance(chara->get_Sound);
             // chara->live ++;
             chara->power++;
         }
@@ -408,7 +411,7 @@ void Character1_interact(Elements *self, Elements *tar) {
     {
         Strength *stren = (Strength *)(tar->pDerivedObj);
         if (stren->hitbox->overlap(stren->hitbox, chara->hitbox))
-        {
+        {al_play_sample_instance(chara->get_Sound);
             // chara->live ++;
             chara->bomb_limit++;
         }
@@ -417,7 +420,7 @@ void Character1_interact(Elements *self, Elements *tar) {
     {
         Missile *missile = (Missile *)(tar->pDerivedObj);
         if (missile->hitbox->overlap(missile->hitbox, chara->hitbox))
-        {
+        {al_play_sample_instance(chara->get_Sound);
             chara->atk_mod = m;
         }
     }
@@ -447,7 +450,7 @@ void Character1_interact(Elements *self, Elements *tar) {
     if (tar->label == Missile_bullet_L)
     {
         Missile_bullet *missile = (Missile_bullet *)(tar->pDerivedObj);
-        if (missile->hitbox->overlap(missile->hitbox, chara->hitbox)&& missile->player != self)
+        if (missile->hitbox->overlap(missile->hitbox, chara->hitbox)&& (missile->player->label != self->label))
         {
             if(chara->strong_cnt == chara->strong_limit){
                 chara->strong_cnt = 0;

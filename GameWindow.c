@@ -143,6 +143,9 @@ bool game_update(Game *self)
         case 5:
             create_scene(Explain_L);
             break;
+        case 6:
+            create_scene(Mode_L);
+            break;
         case 10:
             game_destroy(self);
             break;

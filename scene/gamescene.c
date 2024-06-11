@@ -7,7 +7,7 @@ Scene *New_GameScene(int label)
     GameScene *pDerivedObj = (GameScene *)malloc(sizeof(GameScene));
     Scene *pObj = New_Scene(label);
     // setting derived object member
-    pDerivedObj->background = al_load_bitmap("assets/image/stage07.png");
+    pDerivedObj->background = al_load_bitmap("assets/image/stage10.png");
     pDerivedObj->font = al_load_ttf_font("assets/font/pirulen.ttf", 15, 0);
     pDerivedObj->x = 0;
     pDerivedObj->y = 0;
@@ -36,7 +36,9 @@ void game_scene_load_map(Scene *self)
 {
     FILE *data;
     GameScene *gs = ((GameScene *)(self->pDerivedObj));
-    data = fopen("assets/map/gamescene_map.txt", "r");
+    if(map_mode == 0)data = fopen("assets/map/gamescene_map.txt", "r");
+    if(map_mode == 1)data = fopen("assets/map/scene1.txt", "r");
+    if(map_mode == 2)data = fopen("assets/map/scene4.txt", "r");
     for (int i = 0; i < 14; i++)
     {
         for (int j = 0; j < 15; j++)
@@ -44,7 +46,9 @@ void game_scene_load_map(Scene *self)
             fscanf(data, "%d", &gs->map_data[i][j]);
         }
     }
-    data = fopen("assets/map/item_map.txt", "r");
+    if(map_mode == 0)data = fopen("assets/map/item_map.txt", "r");
+    if(map_mode == 1)data = fopen("assets/map/item1.txt", "r");
+    if(map_mode == 2)data = fopen("assets/map/scene4.txt", "r");
     for (int i = 0; i < 14; i++)
     {
         for (int j = 0; j < 15; j++)
@@ -65,6 +69,102 @@ void game_scene_register_map(Scene *self)
     {
         for (int j = 0; j < 15; j++)
         {
+            if (gs->item_map[i][j] == 0)
+            {
+                MAP[i][j] = 0;
+            }
+            if (gs->item_map[i][j] == 1)
+            {
+                Elements *wall;
+                wall = New_Wall(Wall_L, gs->map_x + j * ONE_GRID  , gs->map_y + i * ONE_GRID);
+                _Register_elements(self, wall);
+
+                MAP[i][j] = 1;
+            }
+            if (gs->item_map[i][j] == 2)
+            {
+                Elements *chara;
+                chara = New_Character(Character_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID, i, j);
+                _Register_elements(self, chara);
+
+                MAP[i][j] = 0;
+            }
+            if (gs->item_map[i][j] == 3)
+            {
+                Elements *chara;
+                chara = New_Character1(Character1_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID, i, j);
+                _Register_elements(self, chara);
+
+                MAP[i][j] = 0;
+            }
+
+            if (gs->item_map[i][j] == 4)
+            {
+                Elements *snow;
+                snow = New_Snow(Snow_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
+                _Register_elements(self, snow);
+
+                MAP[i][j] = 0;
+            }
+            if (gs->item_map[i][j] == 5)
+            {
+                Elements *fire;
+                fire = New_Fire(Fire_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
+                _Register_elements(self, fire);
+
+                MAP[i][j] = 0;
+            }
+            if (gs->item_map[i][j] == 6)
+            {
+                Elements *missile;
+                missile = New_Missile(Missile_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
+                _Register_elements(self, missile);
+                
+                MAP[i][j] = 0;
+            }
+            if (gs->item_map[i][j] == 7)
+            {
+                Elements *fire;
+                fire = New_Fire(Fire_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
+                _Register_elements(self, fire);
+
+                MAP[i][j] = 0;
+            }
+            if (gs->item_map[i][j] == 8)
+            {
+                Elements *house;
+                house = New_House(House_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID,i,j);
+                _Register_elements(self, house);
+
+                MAP[i][j] = 2;
+            }
+            if (gs->item_map[i][j] == 9)
+            {
+                Elements *heart;
+                heart = New_Buff(Buff_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
+                _Register_elements(self, heart);
+                MAP[i][j] = 0;
+            }
+            if (gs->item_map[i][j] == 10)
+            {
+                Elements *heart;
+                heart = New_Strength(Stren_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
+                _Register_elements(self, heart);
+                MAP[i][j] = 0;
+            }
+            
+        }
+    }
+
+
+    for (int i = 0; i < 14; i++)
+    {
+        for (int j = 0; j < 15; j++)
+        {
+            if (gs->map_data[i][j] == 0)
+            {
+                MAP[i][j] = 0;
+            }
             if (gs->map_data[i][j] == 1)
             {
                 Elements *wall;
@@ -130,50 +230,19 @@ void game_scene_register_map(Scene *self)
 
                 MAP[i][j] = 2;
             }
-            
-        }
-    }
-
-    for (int i = 0; i < 14; i++)
-    {
-        for (int j = 0; j < 15; j++)
-        {
-            if (gs->item_map[i][j] == 4)
-            {
-                Elements *snow;
-                snow = New_Snow(Snow_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
-                _Register_elements(self, snow);
-
-            }
-            if (gs->item_map[i][j] == 5)
-            {
-                Elements *fire;
-                fire = New_Fire(Fire_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
-                _Register_elements(self, fire);
-            }
-            if (gs->item_map[i][j] == 6)
-            {
-                Elements *missile;
-                missile = New_Missile(Missile_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
-                _Register_elements(self, missile);
-            }
-            if (gs->item_map[i][j] == 7)
-            {
-                Elements *heart;
-                heart = New_Heart(Heart_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
-                _Register_elements(self, heart);
-            }
-            if (gs->item_map[i][j] == 9)
+            if (gs->map_data[i][j] == 9)
             {
                 Elements *heart;
                 heart = New_Buff(Buff_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
                 _Register_elements(self, heart);
+                MAP[i][j] = 0;
             }
-            if (gs->item_map[i][j] == 10)
+            if (gs->map_data[i][j] == 10)
             {
                 Elements *heart;
                 heart = New_Strength(Stren_L, gs->map_x + j * ONE_GRID , gs->map_y + i * ONE_GRID);
                 _Register_elements(self, heart);
+                MAP[i][j] = 0;
             }
             
         }
