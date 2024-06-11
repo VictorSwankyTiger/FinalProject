@@ -456,7 +456,7 @@ void Character_interact(Elements *self, Elements *tar) {
     if (tar->label == Missile_bullet_L)
     {
         Missile_bullet *missile = (Missile_bullet *)(tar->pDerivedObj);
-        if (missile->hitbox->overlap(missile->hitbox, chara->hitbox) && missile->player != self)
+        if (missile->hitbox->overlap(missile->hitbox, chara->hitbox) && missile->player->label != self->label)
         {
             if(chara->strong_cnt == chara->strong_limit){
                 chara->strong_cnt = 0;
